@@ -6764,7 +6764,6 @@ class Material extends EventDispatcher {
 		this.uuid = generateUUID();
 		this.name = '';
 		this.type = 'Material';
-		this.fog = true;
 		this.blending = NormalBlending;
 		this.side = FrontSide;
 		this.vertexColors = false;
@@ -7010,6 +7009,7 @@ class Material extends EventDispatcher {
 		if (this.flatShading === true) data.flatShading = this.flatShading;
 		if (this.visible === false) data.visible = false;
 		if (this.toneMapped === false) data.toneMapped = false;
+		if (this.fog === false) data.fog = false;
 		if (JSON.stringify(this.userData) !== '{}') data.userData = this.userData; // TODO: Copied from Object3D.toJSON
 
 		function extractFromCache(cache) {
@@ -7040,7 +7040,6 @@ class Material extends EventDispatcher {
 
 	copy(source) {
 		this.name = source.name;
-		this.fog = source.fog;
 		this.blending = source.blending;
 		this.side = source.side;
 		this.vertexColors = source.vertexColors;
@@ -7136,6 +7135,7 @@ class MeshBasicMaterial extends Material {
 		this.wireframeLinewidth = 1;
 		this.wireframeLinecap = 'round';
 		this.wireframeLinejoin = 'round';
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -7157,6 +7157,7 @@ class MeshBasicMaterial extends Material {
 		this.wireframeLinewidth = source.wireframeLinewidth;
 		this.wireframeLinecap = source.wireframeLinecap;
 		this.wireframeLinejoin = source.wireframeLinejoin;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -8861,6 +8862,7 @@ class ShaderMaterial extends Material {
 		this.defines = Object.assign({}, source.defines);
 		this.wireframe = source.wireframe;
 		this.wireframeLinewidth = source.wireframeLinewidth;
+		this.fog = source.fog;
 		this.lights = source.lights;
 		this.clipping = source.clipping;
 		this.extensions = Object.assign({}, source.extensions);
@@ -14536,7 +14538,7 @@ function WebGLPrograms(renderer, cubemaps, cubeuvmaps, extensions, capabilities,
 			vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.displacementMap || !!material.transmissionMap || !!material.thicknessMap || !!material.specularIntensityMap || !!material.specularColorMap || !!material.sheenColorMap || !!material.sheenRoughnessMap,
 			uvsVertexOnly: !(!!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatNormalMap || material.transmission > 0 || !!material.transmissionMap || !!material.thicknessMap || !!material.specularIntensityMap || !!material.specularColorMap || material.sheen > 0 || !!material.sheenColorMap || !!material.sheenRoughnessMap) && !!material.displacementMap,
 			fog: !!fog,
-			useFog: material.fog,
+			useFog: material.fog === true,
 			fogExp2: fog && fog.isFogExp2,
 			flatShading: !!material.flatShading,
 			sizeAttenuation: material.sizeAttenuation,
@@ -15429,7 +15431,6 @@ class MeshDepthMaterial extends Material {
 		this.displacementBias = 0;
 		this.wireframe = false;
 		this.wireframeLinewidth = 1;
-		this.fog = false;
 		this.setValues(parameters);
 	}
 
@@ -15462,7 +15463,6 @@ class MeshDistanceMaterial extends Material {
 		this.displacementMap = null;
 		this.displacementScale = 1;
 		this.displacementBias = 0;
-		this.fog = false;
 		this.setValues(parameters);
 	}
 
@@ -18680,7 +18680,15 @@ class WebXRManager extends EventDispatcher {
 						}
 					}
 
-					const camera = cameras[i];
+					let camera = cameras[i];
+
+					if (camera === undefined) {
+						camera = new PerspectiveCamera();
+						camera.layers.enable(i);
+						camera.viewport = new Vector4();
+						cameras[i] = camera;
+					}
+
 					camera.matrix.fromArray(view.transform.matrix);
 					camera.projectionMatrix.fromArray(view.projectionMatrix);
 					camera.viewport.set(viewport.x, viewport.y, viewport.width, viewport.height);
@@ -20151,7 +20159,7 @@ function WebGLRenderer(parameters = {}) {
 				needsProgramChange = true;
 			} else if (materialProperties.envMap !== envMap) {
 				needsProgramChange = true;
-			} else if (material.fog && materialProperties.fog !== fog) {
+			} else if (material.fog === true && materialProperties.fog !== fog) {
 				needsProgramChange = true;
 			} else if (materialProperties.numClippingPlanes !== undefined && (materialProperties.numClippingPlanes !== clipping.numPlanes || materialProperties.numIntersection !== clipping.numIntersection)) {
 				needsProgramChange = true;
@@ -20280,7 +20288,7 @@ function WebGLRenderer(parameters = {}) {
 			} // refresh uniforms common to several materials
 
 
-			if (fog && material.fog) {
+			if (fog && material.fog === true) {
 				materials.refreshFogUniforms(m_uniforms, fog);
 			}
 
@@ -21022,6 +21030,7 @@ class SpriteMaterial extends Material {
 		this.rotation = 0;
 		this.sizeAttenuation = true;
 		this.transparent = true;
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -21032,6 +21041,7 @@ class SpriteMaterial extends Material {
 		this.alphaMap = source.alphaMap;
 		this.rotation = source.rotation;
 		this.sizeAttenuation = source.sizeAttenuation;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -21760,6 +21770,7 @@ class LineBasicMaterial extends Material {
 		this.linewidth = 1;
 		this.linecap = 'round';
 		this.linejoin = 'round';
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -21769,6 +21780,7 @@ class LineBasicMaterial extends Material {
 		this.linewidth = source.linewidth;
 		this.linecap = source.linecap;
 		this.linejoin = source.linejoin;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -22019,6 +22031,7 @@ class PointsMaterial extends Material {
 		this.alphaMap = null;
 		this.size = 1;
 		this.sizeAttenuation = true;
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -22029,6 +22042,7 @@ class PointsMaterial extends Material {
 		this.alphaMap = source.alphaMap;
 		this.size = source.size;
 		this.sizeAttenuation = source.sizeAttenuation;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -26260,12 +26274,14 @@ class ShadowMaterial extends Material {
 		this.type = 'ShadowMaterial';
 		this.color = new Color(0x000000);
 		this.transparent = true;
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
 	copy(source) {
 		super.copy(source);
 		this.color.copy(source.color);
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -26320,6 +26336,7 @@ class MeshStandardMaterial extends Material {
 		this.wireframeLinecap = 'round';
 		this.wireframeLinejoin = 'round';
 		this.flatShading = false;
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -26357,6 +26374,7 @@ class MeshStandardMaterial extends Material {
 		this.wireframeLinecap = source.wireframeLinecap;
 		this.wireframeLinejoin = source.wireframeLinejoin;
 		this.flatShading = source.flatShading;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -26511,6 +26529,7 @@ class MeshPhongMaterial extends Material {
 		this.wireframeLinecap = 'round';
 		this.wireframeLinejoin = 'round';
 		this.flatShading = false;
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -26546,6 +26565,7 @@ class MeshPhongMaterial extends Material {
 		this.wireframeLinecap = source.wireframeLinecap;
 		this.wireframeLinejoin = source.wireframeLinejoin;
 		this.flatShading = source.flatShading;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -26583,6 +26603,7 @@ class MeshToonMaterial extends Material {
 		this.wireframeLinewidth = 1;
 		this.wireframeLinecap = 'round';
 		this.wireframeLinejoin = 'round';
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -26611,6 +26632,7 @@ class MeshToonMaterial extends Material {
 		this.wireframeLinewidth = source.wireframeLinewidth;
 		this.wireframeLinecap = source.wireframeLinecap;
 		this.wireframeLinejoin = source.wireframeLinejoin;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -26632,7 +26654,6 @@ class MeshNormalMaterial extends Material {
 		this.displacementBias = 0;
 		this.wireframe = false;
 		this.wireframeLinewidth = 1;
-		this.fog = false;
 		this.flatShading = false;
 		this.setValues(parameters);
 	}
@@ -26681,6 +26702,7 @@ class MeshLambertMaterial extends Material {
 		this.wireframeLinewidth = 1;
 		this.wireframeLinecap = 'round';
 		this.wireframeLinejoin = 'round';
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -26705,6 +26727,7 @@ class MeshLambertMaterial extends Material {
 		this.wireframeLinewidth = source.wireframeLinewidth;
 		this.wireframeLinecap = source.wireframeLinecap;
 		this.wireframeLinejoin = source.wireframeLinejoin;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -26733,6 +26756,7 @@ class MeshMatcapMaterial extends Material {
 		this.displacementBias = 0;
 		this.alphaMap = null;
 		this.flatShading = false;
+		this.fog = true;
 		this.setValues(parameters);
 	}
 
@@ -26754,6 +26778,7 @@ class MeshMatcapMaterial extends Material {
 		this.displacementBias = source.displacementBias;
 		this.alphaMap = source.alphaMap;
 		this.flatShading = source.flatShading;
+		this.fog = source.fog;
 		return this;
 	}
 
@@ -33922,15 +33947,15 @@ class PointLightHelper extends Mesh {
 		// TODO: delete this comment?
 		const distanceGeometry = new THREE.IcosahedronGeometry( 1, 2 );
 		const distanceMaterial = new THREE.MeshBasicMaterial( { color: hexColor, fog: false, wireframe: true, opacity: 0.1, transparent: true } );
-		this.lightSphere = new THREE.Mesh( bulbGeometry, bulbMaterial );
+			this.lightSphere = new THREE.Mesh( bulbGeometry, bulbMaterial );
 		this.lightDistance = new THREE.Mesh( distanceGeometry, distanceMaterial );
-		const d = light.distance;
-		if ( d === 0.0 ) {
-			this.lightDistance.visible = false;
-		} else {
-			this.lightDistance.scale.set( d, d, d );
-		}
-		this.add( this.lightDistance );
+			const d = light.distance;
+			if ( d === 0.0 ) {
+				this.lightDistance.visible = false;
+			} else {
+				this.lightDistance.scale.set( d, d, d );
+			}
+			this.add( this.lightDistance );
 		*/
 	}
 
@@ -33947,12 +33972,12 @@ class PointLightHelper extends Mesh {
 		}
 		/*
 		const d = this.light.distance;
-			if ( d === 0.0 ) {
-				this.lightDistance.visible = false;
-			} else {
-				this.lightDistance.visible = true;
+				if ( d === 0.0 ) {
+					this.lightDistance.visible = false;
+				} else {
+					this.lightDistance.visible = true;
 			this.lightDistance.scale.set( d, d, d );
-			}
+				}
 		*/
 
 	}
@@ -34351,7 +34376,7 @@ class BoxHelper extends LineSegments {
 		1/___0/|
 		| 6__|_7
 		2/___3/
-			0: max.x, max.y, max.z
+				0: max.x, max.y, max.z
 		1: min.x, max.y, max.z
 		2: min.x, min.y, max.z
 		3: max.x, min.y, max.z
