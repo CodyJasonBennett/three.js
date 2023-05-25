@@ -418,6 +418,4 @@ class OBB {
 
 }
 
-const obb = new OBB();
-
 export { OBB };
