@@ -32,6 +32,7 @@
 		<script type="module">
 			import * as THREE from 'three';
 
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 			import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
@@ -65,7 +66,7 @@
 			let composer, lutPass;
 
 			init();
-			render();
+			animate();
 
 			function init() {
 
@@ -128,6 +129,9 @@
 				renderer.toneMappingExposure = 1;
 				container.appendChild( renderer.domElement );
 
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
+
 				const target = new THREE.WebGLRenderTarget( {
 					minFilter: THREE.LinearFilter,
 					magFilter: THREE.LinearFilter,
@@ -178,15 +182,17 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				composer.setSize( window.innerWidth, window.innerHeight );
 
-				render();
-
 			}
 
 			//
 
-			function render() {
+			function animate() {
 
-				requestAnimationFrame( render );
+				renderer.setAnimationLoop( render );
+
+			}
+
+			function render() {
 
 				lutPass.enabled = params.enabled && Boolean( lutMap[ params.lut ] );
 				lutPass.intensity = params.intensity;

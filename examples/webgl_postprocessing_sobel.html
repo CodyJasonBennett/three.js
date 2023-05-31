@@ -32,6 +32,7 @@
 
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 			import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
@@ -86,6 +87,9 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
 
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
+
 				// postprocessing
 
 				composer = new EffectComposer( renderer );
@@ -139,7 +143,11 @@
 
 			function animate() {
 
-				requestAnimationFrame( animate );
+				renderer.setAnimationLoop( render );
+
+			}
+
+			function render() {
 
 				if ( params.enable === true ) {
 

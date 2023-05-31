@@ -50,6 +50,7 @@
 
 			import * as THREE from 'three';
 
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
 			import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 			import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 			import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
@@ -119,6 +120,9 @@
 				renderer.setSize( container.offsetWidth, container.offsetHeight );
 				container.appendChild( renderer.domElement );
 
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
+
 				//
 
 				const renderPass = new RenderPass( scene, camera );
@@ -174,7 +178,11 @@
 
 			function animate() {
 
-				requestAnimationFrame( animate );
+				renderer.setAnimationLoop( render );
+
+			}
+
+			function render() {
 
 				const halfWidth = container.offsetWidth / 2;
 

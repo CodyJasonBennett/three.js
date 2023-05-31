@@ -44,6 +44,7 @@
 			import Stats from 'three/addons/libs/stats.module.js';
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 			import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
@@ -76,6 +77,9 @@
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
+
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
 
 				const scene = new THREE.Scene();
 
@@ -117,7 +121,7 @@
 					const clip = gltf.animations[ 0 ];
 					mixer.clipAction( clip.optimize() ).play();
 
-					animate();
+					renderer.setAnimationLoop( animate );
 
 				} );
 
@@ -169,8 +173,6 @@
 			}
 
 			function animate() {
-
-				requestAnimationFrame( animate );
 
 				const delta = clock.getDelta();
 

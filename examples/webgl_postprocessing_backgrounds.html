@@ -33,6 +33,7 @@
 
 			import Stats from 'three/addons/libs/stats.module.js';
 
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 			import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 			import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
@@ -104,15 +105,19 @@
 				renderer.setSize( width, height );
 				document.body.appendChild( renderer.domElement );
 
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
+
 				stats = new Stats();
 				container.appendChild( stats.dom );
 
 				//
 
 				cameraP = new THREE.PerspectiveCamera( 65, aspect, 1, 10 );
-				cameraP.position.z = 7;
+				// cameraP.position.z = 7;
 
 				scene = new THREE.Scene();
+				scene.position.z = - 7;
 
 				const group = new THREE.Group();
 				scene.add( group );
@@ -213,6 +218,12 @@
 			}
 
 			function animate() {
+
+				renderer.setAnimationLoop( render );
+
+			}
+
+			function render() {
 
 				requestAnimationFrame( animate );
 

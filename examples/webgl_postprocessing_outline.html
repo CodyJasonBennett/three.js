@@ -31,6 +31,7 @@
 			import Stats from 'three/addons/libs/stats.module.js';
 			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
 			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 			import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 			import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
@@ -134,6 +135,9 @@
 				// todo - support pixelRatio in this demo
 				renderer.setSize( width, height );
 				document.body.appendChild( renderer.domElement );
+
+				renderer.xr.enabled = true;
+				document.body.appendChild( VRButton.createButton( renderer ) );
 
 				scene = new THREE.Scene();
 
@@ -331,7 +335,11 @@
 
 			function animate() {
 
-				requestAnimationFrame( animate );
+				renderer.setAnimationLoop( render );
+
+			}
+
+			function render() {
 
 				stats.begin();
 
