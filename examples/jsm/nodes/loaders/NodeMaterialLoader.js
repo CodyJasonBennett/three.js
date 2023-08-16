@@ -1,7 +1,7 @@
 import { MaterialLoader } from 'three';
 import { createNodeMaterialFromType } from '../materials/Materials.js';
 
-/* @__PURE__ */ ( () => {
+const NodeMaterialLoader = /* @__PURE__ */ ( () => {
 
 	const superFromTypeFunction = MaterialLoader.createMaterialFromType;
 
@@ -19,45 +19,47 @@ import { createNodeMaterialFromType } from '../materials/Materials.js';
 
 	};
 
-} )();
+	class NodeMaterialLoader extends MaterialLoader {
 
-class NodeMaterialLoader extends MaterialLoader {
+		constructor( manager ) {
 
-	constructor( manager ) {
+			super( manager );
 
-		super( manager );
-
-		this.nodes = {};
-
-	}
-
-	parse( json ) {
-
-		const material = super.parse( json );
-
-		const nodes = this.nodes;
-		const inputNodes = json.inputNodes;
-
-		for ( const property in inputNodes ) {
-
-			const uuid = inputNodes[ property ];
-
-			material[ property ] = nodes[ uuid ];
+			this.nodes = {};
 
 		}
 
-		return material;
+		parse( json ) {
+
+			const material = super.parse( json );
+
+			const nodes = this.nodes;
+			const inputNodes = json.inputNodes;
+
+			for ( const property in inputNodes ) {
+
+				const uuid = inputNodes[ property ];
+
+				material[ property ] = nodes[ uuid ];
+
+			}
+
+			return material;
+
+		}
+
+		setNodes( value ) {
+
+			this.nodes = value;
+
+			return this;
+
+		}
 
 	}
 
-	setNodes( value ) {
+	return NodeMaterialLoader;
 
-		this.nodes = value;
-
-		return this;
-
-	}
-
-}
+} )();
 
 export default NodeMaterialLoader;

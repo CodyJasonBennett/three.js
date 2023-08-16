@@ -35,56 +35,59 @@ const hueNode = /* @__PURE__ */ tslFn( ( { color, adjustment } ) => {
 
 } );
 
-class ColorAdjustmentNode extends TempNode {
 
-	constructor( method, colorNode, adjustmentNode = float( 1 ) ) {
+const ColorAdjustmentNode /* @__PURE__ */ = ( () => {
 
-		super( 'vec3' );
+	class ColorAdjustmentNode extends TempNode {
 
-		this.method = method;
+		constructor( method, colorNode, adjustmentNode = float( 1 ) ) {
 
-		this.colorNode = colorNode;
-		this.adjustmentNode = adjustmentNode;
+			super( 'vec3' );
 
-	}
+			this.method = method;
 
-	construct() {
-
-		const { method, colorNode, adjustmentNode } = this;
-
-		const callParams = { color: colorNode, adjustment: adjustmentNode };
-
-		let outputNode = null;
-
-		if ( method === ColorAdjustmentNode.SATURATION ) {
-
-			outputNode = saturationNode( callParams );
-
-		} else if ( method === ColorAdjustmentNode.VIBRANCE ) {
-
-			outputNode = vibranceNode( callParams );
-
-		} else if ( method === ColorAdjustmentNode.HUE ) {
-
-			outputNode = hueNode( callParams );
-
-		} else {
-
-			console.error( `${ this.type }: Method "${ this.method }" not supported!` );
+			this.colorNode = colorNode;
+			this.adjustmentNode = adjustmentNode;
 
 		}
 
-		return outputNode;
+		construct() {
+
+			const { method, colorNode, adjustmentNode } = this;
+
+			const callParams = { color: colorNode, adjustment: adjustmentNode };
+
+			let outputNode = null;
+
+			if ( method === ColorAdjustmentNode.SATURATION ) {
+
+				outputNode = saturationNode( callParams );
+
+			} else if ( method === ColorAdjustmentNode.VIBRANCE ) {
+
+				outputNode = vibranceNode( callParams );
+
+			} else if ( method === ColorAdjustmentNode.HUE ) {
+
+				outputNode = hueNode( callParams );
+
+			} else {
+
+				console.error( `${ this.type }: Method "${ this.method }" not supported!` );
+
+			}
+
+			return outputNode;
+
+		}
 
 	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	ColorAdjustmentNode.SATURATION = 'saturation';
 	ColorAdjustmentNode.VIBRANCE = 'vibrance';
 	ColorAdjustmentNode.HUE = 'hue';
+
+	return ColorAdjustmentNode;
 
 } )();
 

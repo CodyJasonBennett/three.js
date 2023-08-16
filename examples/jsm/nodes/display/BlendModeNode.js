@@ -35,56 +35,59 @@ export const OverlayNode = /* @__PURE__ */ tslFn( ( { base, blend } ) => {
 
 } );
 
-class BlendModeNode extends TempNode {
 
-	constructor( blendMode, baseNode, blendNode ) {
+const BlendModeNode /* @__PURE__ */ = ( () => {
 
-		super();
+	class BlendModeNode extends TempNode {
 
-		this.blendMode = blendMode;
+		constructor( blendMode, baseNode, blendNode ) {
 
-		this.baseNode = baseNode;
-		this.blendNode = blendNode;
+			super();
 
-	}
+			this.blendMode = blendMode;
 
-	construct() {
-
-		const { blendMode, baseNode, blendNode } = this;
-		const params = { base: baseNode, blend: blendNode };
-
-		let outputNode = null;
-
-		if ( blendMode === BlendModeNode.BURN ) {
-
-			outputNode = BurnNode( params );
-
-		} else if ( blendMode === BlendModeNode.DODGE ) {
-
-			outputNode = DodgeNode( params );
-
-		} else if ( blendMode === BlendModeNode.SCREEN ) {
-
-			outputNode = ScreenNode( params );
-
-		} else if ( blendMode === BlendModeNode.OVERLAY ) {
-
-			outputNode = OverlayNode( params );
+			this.baseNode = baseNode;
+			this.blendNode = blendNode;
 
 		}
 
-		return outputNode;
+		construct() {
+
+			const { blendMode, baseNode, blendNode } = this;
+			const params = { base: baseNode, blend: blendNode };
+
+			let outputNode = null;
+
+			if ( blendMode === BlendModeNode.BURN ) {
+
+				outputNode = BurnNode( params );
+
+			} else if ( blendMode === BlendModeNode.DODGE ) {
+
+				outputNode = DodgeNode( params );
+
+			} else if ( blendMode === BlendModeNode.SCREEN ) {
+
+				outputNode = ScreenNode( params );
+
+			} else if ( blendMode === BlendModeNode.OVERLAY ) {
+
+				outputNode = OverlayNode( params );
+
+			}
+
+			return outputNode;
+
+		}
 
 	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	BlendModeNode.BURN = 'burn';
 	BlendModeNode.DODGE = 'dodge';
 	BlendModeNode.SCREEN = 'screen';
 	BlendModeNode.OVERLAY = 'overlay';
+
+	return BlendModeNode;
 
 } )();
 

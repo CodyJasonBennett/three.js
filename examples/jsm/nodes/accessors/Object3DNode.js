@@ -5,131 +5,132 @@ import { nodeProxy } from '../shadernode/ShaderNode.js';
 
 import { Vector3 } from 'three';
 
-class Object3DNode extends Node {
 
-	constructor( scope = Object3DNode.VIEW_MATRIX, object3d = null ) {
+const Object3DNode /* @__PURE__ */ = ( () => {
 
-		super();
+	class Object3DNode extends Node {
 
-		this.scope = scope;
-		this.object3d = object3d;
+		constructor( scope = Object3DNode.VIEW_MATRIX, object3d = null ) {
 
-		this.updateType = NodeUpdateType.OBJECT;
+			super();
 
-		this._uniformNode = uniform( null );
+			this.scope = scope;
+			this.object3d = object3d;
 
-	}
+			this.updateType = NodeUpdateType.OBJECT;
 
-	getNodeType() {
+			this._uniformNode = uniform( null );
 
-		const scope = this.scope;
+		}
 
-		if ( scope === Object3DNode.WORLD_MATRIX || scope === Object3DNode.VIEW_MATRIX ) {
+		getNodeType() {
 
-			return 'mat4';
+			const scope = this.scope;
 
-		} else if ( scope === Object3DNode.NORMAL_MATRIX ) {
+			if ( scope === Object3DNode.WORLD_MATRIX || scope === Object3DNode.VIEW_MATRIX ) {
 
-			return 'mat3';
+				return 'mat4';
 
-		} else if ( scope === Object3DNode.POSITION || scope === Object3DNode.VIEW_POSITION || scope === Object3DNode.DIRECTION || scope === Object3DNode.SCALE ) {
+			} else if ( scope === Object3DNode.NORMAL_MATRIX ) {
 
-			return 'vec3';
+				return 'mat3';
+
+			} else if ( scope === Object3DNode.POSITION || scope === Object3DNode.VIEW_POSITION || scope === Object3DNode.DIRECTION || scope === Object3DNode.SCALE ) {
+
+				return 'vec3';
+
+			}
+
+		}
+
+		update( frame ) {
+
+			const object = this.object3d;
+			const uniformNode = this._uniformNode;
+			const scope = this.scope;
+
+			if ( scope === Object3DNode.VIEW_MATRIX ) {
+
+				uniformNode.value = object.modelViewMatrix;
+
+			} else if ( scope === Object3DNode.NORMAL_MATRIX ) {
+
+				uniformNode.value = object.normalMatrix;
+
+			} else if ( scope === Object3DNode.WORLD_MATRIX ) {
+
+				uniformNode.value = object.matrixWorld;
+
+			} else if ( scope === Object3DNode.POSITION ) {
+
+				uniformNode.value = uniformNode.value || new Vector3();
+
+				uniformNode.value.setFromMatrixPosition( object.matrixWorld );
+
+			} else if ( scope === Object3DNode.SCALE ) {
+
+				uniformNode.value = uniformNode.value || new Vector3();
+
+				uniformNode.value.setFromMatrixScale( object.matrixWorld );
+
+			} else if ( scope === Object3DNode.DIRECTION ) {
+
+				uniformNode.value = uniformNode.value || new Vector3();
+
+				object.getWorldDirection( uniformNode.value );
+
+			} else if ( scope === Object3DNode.VIEW_POSITION ) {
+
+				const camera = frame.camera;
+
+				uniformNode.value = uniformNode.value || new Vector3();
+				uniformNode.value.setFromMatrixPosition( object.matrixWorld );
+
+				uniformNode.value.applyMatrix4( camera.matrixWorldInverse );
+
+			}
+
+		}
+
+		generate( builder ) {
+
+			const scope = this.scope;
+
+			if ( scope === Object3DNode.WORLD_MATRIX || scope === Object3DNode.VIEW_MATRIX ) {
+
+				this._uniformNode.nodeType = 'mat4';
+
+			} else if ( scope === Object3DNode.NORMAL_MATRIX ) {
+
+				this._uniformNode.nodeType = 'mat3';
+
+			} else if ( scope === Object3DNode.POSITION || scope === Object3DNode.VIEW_POSITION || scope === Object3DNode.DIRECTION || scope === Object3DNode.SCALE ) {
+
+				this._uniformNode.nodeType = 'vec3';
+
+			}
+
+			return this._uniformNode.build( builder );
+
+		}
+
+		serialize( data ) {
+
+			super.serialize( data );
+
+			data.scope = this.scope;
+
+		}
+
+		deserialize( data ) {
+
+			super.deserialize( data );
+
+			this.scope = data.scope;
 
 		}
 
 	}
-
-	update( frame ) {
-
-		const object = this.object3d;
-		const uniformNode = this._uniformNode;
-		const scope = this.scope;
-
-		if ( scope === Object3DNode.VIEW_MATRIX ) {
-
-			uniformNode.value = object.modelViewMatrix;
-
-		} else if ( scope === Object3DNode.NORMAL_MATRIX ) {
-
-			uniformNode.value = object.normalMatrix;
-
-		} else if ( scope === Object3DNode.WORLD_MATRIX ) {
-
-			uniformNode.value = object.matrixWorld;
-
-		} else if ( scope === Object3DNode.POSITION ) {
-
-			uniformNode.value = uniformNode.value || new Vector3();
-
-			uniformNode.value.setFromMatrixPosition( object.matrixWorld );
-
-		} else if ( scope === Object3DNode.SCALE ) {
-
-			uniformNode.value = uniformNode.value || new Vector3();
-
-			uniformNode.value.setFromMatrixScale( object.matrixWorld );
-
-		} else if ( scope === Object3DNode.DIRECTION ) {
-
-			uniformNode.value = uniformNode.value || new Vector3();
-
-			object.getWorldDirection( uniformNode.value );
-
-		} else if ( scope === Object3DNode.VIEW_POSITION ) {
-
-			const camera = frame.camera;
-
-			uniformNode.value = uniformNode.value || new Vector3();
-			uniformNode.value.setFromMatrixPosition( object.matrixWorld );
-
-			uniformNode.value.applyMatrix4( camera.matrixWorldInverse );
-
-		}
-
-	}
-
-	generate( builder ) {
-
-		const scope = this.scope;
-
-		if ( scope === Object3DNode.WORLD_MATRIX || scope === Object3DNode.VIEW_MATRIX ) {
-
-			this._uniformNode.nodeType = 'mat4';
-
-		} else if ( scope === Object3DNode.NORMAL_MATRIX ) {
-
-			this._uniformNode.nodeType = 'mat3';
-
-		} else if ( scope === Object3DNode.POSITION || scope === Object3DNode.VIEW_POSITION || scope === Object3DNode.DIRECTION || scope === Object3DNode.SCALE ) {
-
-			this._uniformNode.nodeType = 'vec3';
-
-		}
-
-		return this._uniformNode.build( builder );
-
-	}
-
-	serialize( data ) {
-
-		super.serialize( data );
-
-		data.scope = this.scope;
-
-	}
-
-	deserialize( data ) {
-
-		super.deserialize( data );
-
-		this.scope = data.scope;
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	Object3DNode.VIEW_MATRIX = 'viewMatrix';
 	Object3DNode.NORMAL_MATRIX = 'normalMatrix';
@@ -138,6 +139,8 @@ class Object3DNode extends Node {
 	Object3DNode.SCALE = 'scale';
 	Object3DNode.VIEW_POSITION = 'viewPosition';
 	Object3DNode.DIRECTION = 'direction';
+
+	return Object3DNode;
 
 } )();
 

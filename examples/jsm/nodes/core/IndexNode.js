@@ -2,63 +2,66 @@ import Node, { addNodeClass } from './Node.js';
 import { varying } from './VaryingNode.js';
 import { nodeImmutable } from '../shadernode/ShaderNode.js';
 
-class IndexNode extends Node {
 
-	constructor( scope ) {
+const IndexNode /* @__PURE__ */ = ( () => {
 
-		super( 'uint' );
+	class IndexNode extends Node {
 
-		this.scope = scope;
+		constructor( scope ) {
 
-		this.isInstanceIndexNode = true;
+			super( 'uint' );
 
-	}
+			this.scope = scope;
 
-	generate( builder ) {
-
-		const nodeType = this.getNodeType( builder );
-		const scope = this.scope;
-
-		let propertyName;
-
-		if ( scope === IndexNode.VERTEX ) {
-
-			propertyName = builder.getVertexIndex();
-
-		} else if ( scope === IndexNode.INSTANCE ) {
-
-			propertyName = builder.getInstanceIndex();
-
-		} else {
-
-			throw new Error( 'THREE.IndexNode: Unknown scope: ' + scope );
+			this.isInstanceIndexNode = true;
 
 		}
 
-		let output;
+		generate( builder ) {
 
-		if ( builder.shaderStage === 'vertex' || builder.shaderStage === 'compute' ) {
+			const nodeType = this.getNodeType( builder );
+			const scope = this.scope;
 
-			output = propertyName;
+			let propertyName;
 
-		} else {
+			if ( scope === IndexNode.VERTEX ) {
 
-			const nodeVarying = varying( this );
+				propertyName = builder.getVertexIndex();
 
-			output = nodeVarying.build( builder, nodeType );
+			} else if ( scope === IndexNode.INSTANCE ) {
+
+				propertyName = builder.getInstanceIndex();
+
+			} else {
+
+				throw new Error( 'THREE.IndexNode: Unknown scope: ' + scope );
+
+			}
+
+			let output;
+
+			if ( builder.shaderStage === 'vertex' || builder.shaderStage === 'compute' ) {
+
+				output = propertyName;
+
+			} else {
+
+				const nodeVarying = varying( this );
+
+				output = nodeVarying.build( builder, nodeType );
+
+			}
+
+			return output;
 
 		}
 
-		return output;
-
 	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	IndexNode.VERTEX = 'vertex';
 	IndexNode.INSTANCE = 'instance';
+
+	return IndexNode;
 
 } )();
 

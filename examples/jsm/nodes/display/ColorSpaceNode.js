@@ -59,35 +59,38 @@ const getMethod = ( source, target ) => {
 
 };
 
-class ColorSpaceNode extends TempNode {
 
-	constructor( method, node ) {
+const ColorSpaceNode /* @__PURE__ */ = ( () => {
 
-		super( 'vec4' );
+	class ColorSpaceNode extends TempNode {
 
-		this.method = method;
-		this.node = node;
+		constructor( method, node ) {
+
+			super( 'vec4' );
+
+			this.method = method;
+			this.node = node;
+
+		}
+
+		construct() {
+
+			const { method, node } = this;
+
+			if ( method === ColorSpaceNode.LINEAR_TO_LINEAR )
+				return node;
+
+			return Methods[ method ]( { value: node } );
+
+		}
 
 	}
-
-	construct() {
-
-		const { method, node } = this;
-
-		if ( method === ColorSpaceNode.LINEAR_TO_LINEAR )
-			return node;
-
-		return Methods[ method ]( { value: node } );
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	ColorSpaceNode.LINEAR_TO_LINEAR = 'LinearToLinear';
 	ColorSpaceNode.LINEAR_TO_sRGB = 'LinearTosRGB';
 	ColorSpaceNode.sRGB_TO_LINEAR = 'sRGBToLinear';
+
+	return ColorSpaceNode;
 
 } )();
 

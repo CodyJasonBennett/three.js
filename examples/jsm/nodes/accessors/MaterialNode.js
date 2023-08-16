@@ -3,228 +3,229 @@ import { reference } from './ReferenceNode.js';
 import { materialReference } from './MaterialReferenceNode.js';
 import { nodeImmutable, float } from '../shadernode/ShaderNode.js';
 
-class MaterialNode extends Node {
 
-	constructor( scope ) {
+const MaterialNode /* @__PURE__ */ = ( () => {
 
-		super();
+	class MaterialNode extends Node {
 
-		this.scope = scope;
+		constructor( scope ) {
 
-	}
+			super();
 
-	getFloat( property ) {
-
-		//@TODO: Check if it can be cached by property name.
-
-		return materialReference( property, 'float' );
-
-	}
-
-	getColor( property ) {
-
-		//@TODO: Check if it can be cached by property name.
-
-		return materialReference( property, 'color' );
-
-	}
-
-	getTexture( property ) {
-
-		//@TODO: Check if it can be cached by property name.
-
-		const textureRefNode = materialReference( property, 'texture' );
-
-		return textureRefNode;
-
-	}
-
-	construct( builder ) {
-
-		const material = builder.context.material;
-		const scope = this.scope;
-
-		let node = null;
-
-		if ( scope === MaterialNode.ALPHA_TEST || scope === MaterialNode.SHININESS || scope === MaterialNode.REFLECTIVITY || scope === MaterialNode.ROTATION || scope === MaterialNode.IRIDESCENCE || scope === MaterialNode.IRIDESCENCE_IOR ) {
-
-			node = this.getFloat( scope );
-
-		} else if ( scope === MaterialNode.SPECULAR_COLOR ) {
-
-			node = this.getColor( 'specular' );
-
-		} else if ( scope === MaterialNode.COLOR ) {
-
-			const colorNode = this.getColor( 'color' );
-
-			if ( material.map && material.map.isTexture === true ) {
-
-				node = colorNode.mul( this.getTexture( 'map' ) );
-
-			} else {
-
-				node = colorNode;
-
-			}
-
-		} else if ( scope === MaterialNode.OPACITY ) {
-
-			const opacityNode = this.getFloat( 'opacity' );
-
-			if ( material.alphaMap && material.alphaMap.isTexture === true ) {
-
-				node = opacityNode.mul( this.getTexture( 'alphaMap' ) );
-
-			} else {
-
-				node = opacityNode;
-
-			}
-
-		} else if ( scope === MaterialNode.SPECULAR_STRENGTH ) {
-
-			if ( material.specularMap && material.specularMap.isTexture === true ) {
-
-				node = this.getTexture( 'specularMap' ).r;
-
-			} else {
-
-				node = float( 1 );
-
-			}
-
-		} else if ( scope === MaterialNode.ROUGHNESS ) {
-
-			const roughnessNode = this.getFloat( 'roughness' );
-
-			if ( material.roughnessMap && material.roughnessMap.isTexture === true ) {
-
-				node = roughnessNode.mul( this.getTexture( 'roughnessMap' ).g );
-
-			} else {
-
-				node = roughnessNode;
-
-			}
-
-		} else if ( scope === MaterialNode.METALNESS ) {
-
-			const metalnessNode = this.getFloat( 'metalness' );
-
-			if ( material.metalnessMap && material.metalnessMap.isTexture === true ) {
-
-				node = metalnessNode.mul( this.getTexture( 'metalnessMap' ).b );
-
-			} else {
-
-				node = metalnessNode;
-
-			}
-
-		} else if ( scope === MaterialNode.EMISSIVE ) {
-
-			const emissiveNode = this.getColor( 'emissive' );
-
-			if ( material.emissiveMap && material.emissiveMap.isTexture === true ) {
-
-				node = emissiveNode.mul( this.getTexture( 'emissiveMap' ) );
-
-			} else {
-
-				node = emissiveNode;
-
-			}
-
-		} else if ( scope === MaterialNode.CLEARCOAT ) {
-
-			const clearcoatNode = this.getFloat( 'clearcoat' );
-
-			if ( material.clearcoatMap && material.clearcoatMap.isTexture === true ) {
-
-				node = clearcoatNode.mul( this.getTexture( 'clearcoatMap' ).r );
-
-			} else {
-
-				node = clearcoatNode;
-
-			}
-
-		} else if ( scope === MaterialNode.CLEARCOAT_ROUGHNESS ) {
-
-			const clearcoatRoughnessNode = this.getFloat( 'clearcoatRoughness' );
-
-			if ( material.clearcoatRoughnessMap && material.clearcoatRoughnessMap.isTexture === true ) {
-
-				node = clearcoatRoughnessNode.mul( this.getTexture( 'clearcoatRoughnessMap' ).r );
-
-			} else {
-
-				node = clearcoatRoughnessNode;
-
-			}
-
-		} else if ( scope === MaterialNode.SHEEN ) {
-
-			const sheenNode = this.getColor( 'sheenColor' ).mul( this.getFloat( 'sheen' ) ); // Move this mul() to CPU
-
-			if ( material.sheenColorMap && material.sheenColorMap.isTexture === true ) {
-
-				node = sheenNode.mul( this.getTexture( 'sheenColorMap' ).rgb );
-
-			} else {
-
-				node = sheenNode;
-
-			}
-
-		} else if ( scope === MaterialNode.SHEEN_ROUGHNESS ) {
-
-			const sheenRoughnessNode = this.getFloat( 'sheenRoughness' );
-
-			if ( material.sheenRoughnessMap && material.sheenRoughnessMap.isTexture === true ) {
-
-				node = sheenRoughnessNode.mul( this.getTexture( 'sheenRoughnessMap' ).a );
-
-			} else {
-
-				node = sheenRoughnessNode;
-
-			}
-
-			node = node.clamp( 0.07, 1.0 );
-
-		} else if ( scope === MaterialNode.IRIDESCENCE_THICKNESS ) {
-
-			const iridescenceThicknessMaximum = reference( 1, 'float', material.iridescenceThicknessRange );
-
-			if ( material.iridescenceThicknessMap ) {
-
-				const iridescenceThicknessMinimum = reference( 0, 'float', material.iridescenceThicknessRange );
-
-				node = iridescenceThicknessMaximum.sub( iridescenceThicknessMinimum ).mul( this.getTexture( 'iridescenceThicknessMap' ).g ).add( iridescenceThicknessMinimum );
-
-			} else {
-
-				node = iridescenceThicknessMaximum;
-
-			}
-
-		} else {
-
-			const outputType = this.getNodeType( builder );
-
-			node = materialReference( scope, outputType );
+			this.scope = scope;
 
 		}
 
-		return node;
+		getFloat( property ) {
+
+			//@TODO: Check if it can be cached by property name.
+
+			return materialReference( property, 'float' );
+
+		}
+
+		getColor( property ) {
+
+			//@TODO: Check if it can be cached by property name.
+
+			return materialReference( property, 'color' );
+
+		}
+
+		getTexture( property ) {
+
+			//@TODO: Check if it can be cached by property name.
+
+			const textureRefNode = materialReference( property, 'texture' );
+
+			return textureRefNode;
+
+		}
+
+		construct( builder ) {
+
+			const material = builder.context.material;
+			const scope = this.scope;
+
+			let node = null;
+
+			if ( scope === MaterialNode.ALPHA_TEST || scope === MaterialNode.SHININESS || scope === MaterialNode.REFLECTIVITY || scope === MaterialNode.ROTATION || scope === MaterialNode.IRIDESCENCE || scope === MaterialNode.IRIDESCENCE_IOR ) {
+
+				node = this.getFloat( scope );
+
+			} else if ( scope === MaterialNode.SPECULAR_COLOR ) {
+
+				node = this.getColor( 'specular' );
+
+			} else if ( scope === MaterialNode.COLOR ) {
+
+				const colorNode = this.getColor( 'color' );
+
+				if ( material.map && material.map.isTexture === true ) {
+
+					node = colorNode.mul( this.getTexture( 'map' ) );
+
+				} else {
+
+					node = colorNode;
+
+				}
+
+			} else if ( scope === MaterialNode.OPACITY ) {
+
+				const opacityNode = this.getFloat( 'opacity' );
+
+				if ( material.alphaMap && material.alphaMap.isTexture === true ) {
+
+					node = opacityNode.mul( this.getTexture( 'alphaMap' ) );
+
+				} else {
+
+					node = opacityNode;
+
+				}
+
+			} else if ( scope === MaterialNode.SPECULAR_STRENGTH ) {
+
+				if ( material.specularMap && material.specularMap.isTexture === true ) {
+
+					node = this.getTexture( 'specularMap' ).r;
+
+				} else {
+
+					node = float( 1 );
+
+				}
+
+			} else if ( scope === MaterialNode.ROUGHNESS ) {
+
+				const roughnessNode = this.getFloat( 'roughness' );
+
+				if ( material.roughnessMap && material.roughnessMap.isTexture === true ) {
+
+					node = roughnessNode.mul( this.getTexture( 'roughnessMap' ).g );
+
+				} else {
+
+					node = roughnessNode;
+
+				}
+
+			} else if ( scope === MaterialNode.METALNESS ) {
+
+				const metalnessNode = this.getFloat( 'metalness' );
+
+				if ( material.metalnessMap && material.metalnessMap.isTexture === true ) {
+
+					node = metalnessNode.mul( this.getTexture( 'metalnessMap' ).b );
+
+				} else {
+
+					node = metalnessNode;
+
+				}
+
+			} else if ( scope === MaterialNode.EMISSIVE ) {
+
+				const emissiveNode = this.getColor( 'emissive' );
+
+				if ( material.emissiveMap && material.emissiveMap.isTexture === true ) {
+
+					node = emissiveNode.mul( this.getTexture( 'emissiveMap' ) );
+
+				} else {
+
+					node = emissiveNode;
+
+				}
+
+			} else if ( scope === MaterialNode.CLEARCOAT ) {
+
+				const clearcoatNode = this.getFloat( 'clearcoat' );
+
+				if ( material.clearcoatMap && material.clearcoatMap.isTexture === true ) {
+
+					node = clearcoatNode.mul( this.getTexture( 'clearcoatMap' ).r );
+
+				} else {
+
+					node = clearcoatNode;
+
+				}
+
+			} else if ( scope === MaterialNode.CLEARCOAT_ROUGHNESS ) {
+
+				const clearcoatRoughnessNode = this.getFloat( 'clearcoatRoughness' );
+
+				if ( material.clearcoatRoughnessMap && material.clearcoatRoughnessMap.isTexture === true ) {
+
+					node = clearcoatRoughnessNode.mul( this.getTexture( 'clearcoatRoughnessMap' ).r );
+
+				} else {
+
+					node = clearcoatRoughnessNode;
+
+				}
+
+			} else if ( scope === MaterialNode.SHEEN ) {
+
+				const sheenNode = this.getColor( 'sheenColor' ).mul( this.getFloat( 'sheen' ) ); // Move this mul() to CPU
+
+				if ( material.sheenColorMap && material.sheenColorMap.isTexture === true ) {
+
+					node = sheenNode.mul( this.getTexture( 'sheenColorMap' ).rgb );
+
+				} else {
+
+					node = sheenNode;
+
+				}
+
+			} else if ( scope === MaterialNode.SHEEN_ROUGHNESS ) {
+
+				const sheenRoughnessNode = this.getFloat( 'sheenRoughness' );
+
+				if ( material.sheenRoughnessMap && material.sheenRoughnessMap.isTexture === true ) {
+
+					node = sheenRoughnessNode.mul( this.getTexture( 'sheenRoughnessMap' ).a );
+
+				} else {
+
+					node = sheenRoughnessNode;
+
+				}
+
+				node = node.clamp( 0.07, 1.0 );
+
+			} else if ( scope === MaterialNode.IRIDESCENCE_THICKNESS ) {
+
+				const iridescenceThicknessMaximum = reference( 1, 'float', material.iridescenceThicknessRange );
+
+				if ( material.iridescenceThicknessMap ) {
+
+					const iridescenceThicknessMinimum = reference( 0, 'float', material.iridescenceThicknessRange );
+
+					node = iridescenceThicknessMaximum.sub( iridescenceThicknessMinimum ).mul( this.getTexture( 'iridescenceThicknessMap' ).g ).add( iridescenceThicknessMinimum );
+
+				} else {
+
+					node = iridescenceThicknessMaximum;
+
+				}
+
+			} else {
+
+				const outputType = this.getNodeType( builder );
+
+				node = materialReference( scope, outputType );
+
+			}
+
+			return node;
+
+		}
 
 	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	MaterialNode.ALPHA_TEST = 'alphaTest';
 	MaterialNode.COLOR = 'color';
@@ -244,6 +245,8 @@ class MaterialNode extends Node {
 	MaterialNode.IRIDESCENCE = 'iridescence';
 	MaterialNode.IRIDESCENCE_IOR = 'iridescenceIOR';
 	MaterialNode.IRIDESCENCE_THICKNESS = 'iridescenceThickness';
+
+	return MaterialNode;
 
 } )();
 

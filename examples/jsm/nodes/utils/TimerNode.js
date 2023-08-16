@@ -3,87 +3,90 @@ import { NodeUpdateType } from '../core/constants.js';
 import { nodeObject, nodeImmutable } from '../shadernode/ShaderNode.js';
 import { addNodeClass } from '../core/Node.js';
 
-class TimerNode extends UniformNode {
 
-	constructor( scope = TimerNode.LOCAL, scale = 1, value = 0 ) {
+const TimerNode /* @__PURE__ */ = ( () => {
 
-		super( value );
+	class TimerNode extends UniformNode {
 
-		this.scope = scope;
-		this.scale = scale;
+		constructor( scope = TimerNode.LOCAL, scale = 1, value = 0 ) {
 
-		this.updateType = NodeUpdateType.FRAME;
+			super( value );
 
-	}
-	/*
-	@TODO:
-	getNodeType( builder ) {
+			this.scope = scope;
+			this.scale = scale;
 
-		const scope = this.scope;
+			this.updateType = NodeUpdateType.FRAME;
 
-		if ( scope === TimerNode.FRAME ) {
+		}
+		/*
+		@TODO:
+		getNodeType( builder ) {
 
-			return 'uint';
+			const scope = this.scope;
+
+			if ( scope === TimerNode.FRAME ) {
+
+				return 'uint';
+
+			}
+
+			return 'float';
+
+		}
+	*/
+		update( frame ) {
+
+			const scope = this.scope;
+			const scale = this.scale;
+
+			if ( scope === TimerNode.LOCAL ) {
+
+				this.value += frame.deltaTime * scale;
+
+			} else if ( scope === TimerNode.DELTA ) {
+
+				this.value = frame.deltaTime * scale;
+
+			} else if ( scope === TimerNode.FRAME ) {
+
+				this.value = frame.frameId;
+
+			} else {
+
+				// global
+
+				this.value = frame.time * scale;
+
+			}
 
 		}
 
-		return 'float';
+		serialize( data ) {
 
-	}
-*/
-	update( frame ) {
+			super.serialize( data );
 
-		const scope = this.scope;
-		const scale = this.scale;
+			data.scope = this.scope;
+			data.scale = this.scale;
 
-		if ( scope === TimerNode.LOCAL ) {
+		}
 
-			this.value += frame.deltaTime * scale;
+		deserialize( data ) {
 
-		} else if ( scope === TimerNode.DELTA ) {
+			super.deserialize( data );
 
-			this.value = frame.deltaTime * scale;
-
-		} else if ( scope === TimerNode.FRAME ) {
-
-			this.value = frame.frameId;
-
-		} else {
-
-			// global
-
-			this.value = frame.time * scale;
+			this.scope = data.scope;
+			this.scale = data.scale;
 
 		}
 
 	}
-
-	serialize( data ) {
-
-		super.serialize( data );
-
-		data.scope = this.scope;
-		data.scale = this.scale;
-
-	}
-
-	deserialize( data ) {
-
-		super.deserialize( data );
-
-		this.scope = data.scope;
-		this.scale = data.scale;
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	TimerNode.LOCAL = 'local';
 	TimerNode.GLOBAL = 'global';
 	TimerNode.DELTA = 'delta';
 	TimerNode.FRAME = 'frame';
+
+	return TimerNode;
 
 } )();
 

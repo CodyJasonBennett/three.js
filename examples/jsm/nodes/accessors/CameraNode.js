@@ -3,89 +3,92 @@ import { addNodeClass } from '../core/Node.js';
 import { label } from '../core/ContextNode.js';
 import { nodeImmutable } from '../shadernode/ShaderNode.js';
 
-class CameraNode extends Object3DNode {
 
-	constructor( scope = CameraNode.POSITION ) {
+const CameraNode = /* @__PURE__ */ ( () => {
 
-		super( scope );
+	class CameraNode extends Object3DNode {
 
-	}
+		constructor( scope = CameraNode.POSITION ) {
 
-	getNodeType( builder ) {
-
-		const scope = this.scope;
-
-		if ( scope === CameraNode.PROJECTION_MATRIX ) {
-
-			return 'mat4';
-
-		} else if ( scope === CameraNode.NEAR || scope === CameraNode.FAR ) {
-
-			return 'float';
+			super( scope );
 
 		}
 
-		return super.getNodeType( builder );
+		getNodeType( builder ) {
 
-	}
+			const scope = this.scope;
 
-	update( frame ) {
+			if ( scope === CameraNode.PROJECTION_MATRIX ) {
 
-		const camera = frame.camera;
-		const uniformNode = this._uniformNode;
-		const scope = this.scope;
+				return 'mat4';
 
-		if ( scope === CameraNode.VIEW_MATRIX ) {
+			} else if ( scope === CameraNode.NEAR || scope === CameraNode.FAR ) {
 
-			uniformNode.value = camera.matrixWorldInverse;
+				return 'float';
 
-		} else if ( scope === CameraNode.PROJECTION_MATRIX ) {
+			}
 
-			uniformNode.value = camera.projectionMatrix;
+			return super.getNodeType( builder );
 
-		} else if ( scope === CameraNode.NEAR ) {
+		}
 
-			uniformNode.value = camera.near;
+		update( frame ) {
 
-		} else if ( scope === CameraNode.FAR ) {
+			const camera = frame.camera;
+			const uniformNode = this._uniformNode;
+			const scope = this.scope;
 
-			uniformNode.value = camera.far;
+			if ( scope === CameraNode.VIEW_MATRIX ) {
 
-		} else {
+				uniformNode.value = camera.matrixWorldInverse;
 
-			this.object3d = camera;
+			} else if ( scope === CameraNode.PROJECTION_MATRIX ) {
 
-			super.update( frame );
+				uniformNode.value = camera.projectionMatrix;
+
+			} else if ( scope === CameraNode.NEAR ) {
+
+				uniformNode.value = camera.near;
+
+			} else if ( scope === CameraNode.FAR ) {
+
+				uniformNode.value = camera.far;
+
+			} else {
+
+				this.object3d = camera;
+
+				super.update( frame );
+
+			}
+
+		}
+
+		generate( builder ) {
+
+			const scope = this.scope;
+
+			if ( scope === CameraNode.PROJECTION_MATRIX ) {
+
+				this._uniformNode.nodeType = 'mat4';
+
+			} else if ( scope === CameraNode.NEAR || scope === CameraNode.FAR ) {
+
+				this._uniformNode.nodeType = 'float';
+
+			}
+
+			return super.generate( builder );
 
 		}
 
 	}
-
-	generate( builder ) {
-
-		const scope = this.scope;
-
-		if ( scope === CameraNode.PROJECTION_MATRIX ) {
-
-			this._uniformNode.nodeType = 'mat4';
-
-		} else if ( scope === CameraNode.NEAR || scope === CameraNode.FAR ) {
-
-			this._uniformNode.nodeType = 'float';
-
-		}
-
-		return super.generate( builder );
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	CameraNode.PROJECTION_MATRIX = 'projectionMatrix';
 	CameraNode.NEAR = 'near';
 	CameraNode.FAR = 'far';
+
+	return CameraNode;
 
 } )();
 

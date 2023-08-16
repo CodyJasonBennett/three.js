@@ -3,48 +3,51 @@ import { addNodeClass } from '../core/Node.js';
 import { nodeImmutable } from '../shadernode/ShaderNode.js';
 import { reference } from './ReferenceNode.js';
 
-class SceneNode extends Node {
 
-	constructor( scope = SceneNode.BACKGROUND_BLURRINESS, scene = null ) {
+const SceneNode /* @__PURE__ */ = ( () => {
 
-		super();
+	class SceneNode extends Node {
 
-		this.scope = scope;
-		this.scene = scene;
+		constructor( scope = SceneNode.BACKGROUND_BLURRINESS, scene = null ) {
 
-	}
+			super();
 
-	construct( builder ) {
-
-		const scope = this.scope;
-		const scene = this.scene !== null ? this.scene : builder.scene;
-
-		let output;
-
-		if ( scope === SceneNode.BACKGROUND_BLURRINESS ) {
-
-			output = reference( 'backgroundBlurriness', 'float', scene );
-
-		} else if ( scope === SceneNode.BACKGROUND_INTENSITY ) {
-
-			output = reference( 'backgroundIntensity', 'float', scene );
-
-		} else {
-
-			console.error( 'THREE.SceneNode: Unknown scope:', scope );
+			this.scope = scope;
+			this.scene = scene;
 
 		}
 
-		return output;
+		construct( builder ) {
+
+			const scope = this.scope;
+			const scene = this.scene !== null ? this.scene : builder.scene;
+
+			let output;
+
+			if ( scope === SceneNode.BACKGROUND_BLURRINESS ) {
+
+				output = reference( 'backgroundBlurriness', 'float', scene );
+
+			} else if ( scope === SceneNode.BACKGROUND_INTENSITY ) {
+
+				output = reference( 'backgroundIntensity', 'float', scene );
+
+			} else {
+
+				console.error( 'THREE.SceneNode: Unknown scope:', scope );
+
+			}
+
+			return output;
+
+		}
 
 	}
 
-}
-
-/* @__PURE__ */ ( () => {
-
 	SceneNode.BACKGROUND_BLURRINESS = 'backgroundBlurriness';
 	SceneNode.BACKGROUND_INTENSITY = 'backgroundIntensity';
+
+	return SceneNode;
 
 } )();
 

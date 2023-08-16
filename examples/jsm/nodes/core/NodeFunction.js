@@ -1,25 +1,28 @@
-class NodeFunction {
 
-	constructor( type, inputs, name = '', presicion = '' ) {
+const NodeFunction /* @__PURE__ */ = ( () => {
 
-		this.type = type;
-		this.inputs = inputs;
-		this.name = name;
-		this.presicion = presicion;
+	class NodeFunction {
+
+		constructor( type, inputs, name = '', presicion = '' ) {
+
+			this.type = type;
+			this.inputs = inputs;
+			this.name = name;
+			this.presicion = presicion;
+
+		}
+
+		getCode( /*name = this.name*/ ) {
+
+			console.warn( 'Abstract function.' );
+
+		}
 
 	}
-
-	getCode( /*name = this.name*/ ) {
-
-		console.warn( 'Abstract function.' );
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	NodeFunction.isNodeFunction = true;
+
+	return NodeFunction;
 
 } )();
 

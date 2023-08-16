@@ -7,91 +7,94 @@ import { cameraViewMatrix } from './CameraNode.js';
 import { modelViewMatrix } from './ModelNode.js';
 import { nodeImmutable } from '../shadernode/ShaderNode.js';
 
-class TangentNode extends Node {
 
-	constructor( scope = TangentNode.LOCAL ) {
+const TangentNode /* @__PURE__ */ = ( () => {
 
-		super();
+	class TangentNode extends Node {
 
-		this.scope = scope;
+		constructor( scope = TangentNode.LOCAL ) {
 
-	}
+			super();
 
-	getHash( /*builder*/ ) {
-
-		return `tangent-${this.scope}`;
-
-	}
-
-	getNodeType() {
-
-		const scope = this.scope;
-
-		if ( scope === TangentNode.GEOMETRY ) {
-
-			return 'vec4';
+			this.scope = scope;
 
 		}
 
-		return 'vec3';
+		getHash( /*builder*/ ) {
 
-	}
-
-
-	generate( builder ) {
-
-		const scope = this.scope;
-
-		let outputNode = null;
-
-		if ( scope === TangentNode.GEOMETRY ) {
-
-			outputNode = attribute( 'tangent', 'vec4' );
-
-		} else if ( scope === TangentNode.LOCAL ) {
-
-			outputNode = varying( tangentGeometry.xyz );
-
-		} else if ( scope === TangentNode.VIEW ) {
-
-			const vertexNode = modelViewMatrix.mul( tangentLocal ).xyz;
-			outputNode = normalize( varying( vertexNode ) );
-
-		} else if ( scope === TangentNode.WORLD ) {
-
-			const vertexNode = tangentView.transformDirection( cameraViewMatrix );
-			outputNode = normalize( varying( vertexNode ) );
+			return `tangent-${this.scope}`;
 
 		}
 
-		return outputNode.build( builder, this.getNodeType( builder ) );
+		getNodeType() {
+
+			const scope = this.scope;
+
+			if ( scope === TangentNode.GEOMETRY ) {
+
+				return 'vec4';
+
+			}
+
+			return 'vec3';
+
+		}
+
+
+		generate( builder ) {
+
+			const scope = this.scope;
+
+			let outputNode = null;
+
+			if ( scope === TangentNode.GEOMETRY ) {
+
+				outputNode = attribute( 'tangent', 'vec4' );
+
+			} else if ( scope === TangentNode.LOCAL ) {
+
+				outputNode = varying( tangentGeometry.xyz );
+
+			} else if ( scope === TangentNode.VIEW ) {
+
+				const vertexNode = modelViewMatrix.mul( tangentLocal ).xyz;
+				outputNode = normalize( varying( vertexNode ) );
+
+			} else if ( scope === TangentNode.WORLD ) {
+
+				const vertexNode = tangentView.transformDirection( cameraViewMatrix );
+				outputNode = normalize( varying( vertexNode ) );
+
+			}
+
+			return outputNode.build( builder, this.getNodeType( builder ) );
+
+		}
+
+		serialize( data ) {
+
+			super.serialize( data );
+
+			data.scope = this.scope;
+
+		}
+
+		deserialize( data ) {
+
+			super.deserialize( data );
+
+			this.scope = data.scope;
+
+		}
 
 	}
-
-	serialize( data ) {
-
-		super.serialize( data );
-
-		data.scope = this.scope;
-
-	}
-
-	deserialize( data ) {
-
-		super.deserialize( data );
-
-		this.scope = data.scope;
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	TangentNode.GEOMETRY = 'geometry';
 	TangentNode.LOCAL = 'local';
 	TangentNode.VIEW = 'view';
 	TangentNode.WORLD = 'world';
+
+	return TangentNode;
 
 } )();
 

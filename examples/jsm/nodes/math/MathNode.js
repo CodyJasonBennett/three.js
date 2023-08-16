@@ -3,193 +3,194 @@ import { sub, mul, div } from './OperatorNode.js';
 import { addNodeClass } from '../core/Node.js';
 import { addNodeElement, nodeObject, nodeProxy, float, vec3, vec4 } from '../shadernode/ShaderNode.js';
 
-class MathNode extends TempNode {
 
-	constructor( method, aNode, bNode = null, cNode = null ) {
+const MathNode = /* @__PURE__ */ ( () => {
 
-		super();
+	class MathNode extends TempNode {
 
-		this.method = method;
+		constructor( method, aNode, bNode = null, cNode = null ) {
 
-		this.aNode = aNode;
-		this.bNode = bNode;
-		this.cNode = cNode;
+			super();
 
-	}
+			this.method = method;
 
-	getInputType( builder ) {
+			this.aNode = aNode;
+			this.bNode = bNode;
+			this.cNode = cNode;
 
-		const aType = this.aNode.getNodeType( builder );
-		const bType = this.bNode ? this.bNode.getNodeType( builder ) : null;
-		const cType = this.cNode ? this.cNode.getNodeType( builder ) : null;
+		}
 
-		const aLen = builder.isMatrix( aType ) ? 0 : builder.getTypeLength( aType );
-		const bLen = builder.isMatrix( bType ) ? 0 : builder.getTypeLength( bType );
-		const cLen = builder.isMatrix( cType ) ? 0 : builder.getTypeLength( cType );
+		getInputType( builder ) {
 
-		if ( aLen > bLen && aLen > cLen ) {
+			const aType = this.aNode.getNodeType( builder );
+			const bType = this.bNode ? this.bNode.getNodeType( builder ) : null;
+			const cType = this.cNode ? this.cNode.getNodeType( builder ) : null;
+
+			const aLen = builder.isMatrix( aType ) ? 0 : builder.getTypeLength( aType );
+			const bLen = builder.isMatrix( bType ) ? 0 : builder.getTypeLength( bType );
+			const cLen = builder.isMatrix( cType ) ? 0 : builder.getTypeLength( cType );
+
+			if ( aLen > bLen && aLen > cLen ) {
+
+				return aType;
+
+			} else if ( bLen > cLen ) {
+
+				return bType;
+
+			} else if ( cLen > aLen ) {
+
+				return cType;
+
+			}
 
 			return aType;
 
-		} else if ( bLen > cLen ) {
-
-			return bType;
-
-		} else if ( cLen > aLen ) {
-
-			return cType;
-
 		}
 
-		return aType;
+		getNodeType( builder ) {
 
-	}
+			const method = this.method;
 
-	getNodeType( builder ) {
+			if ( method === MathNode.LENGTH || method === MathNode.DISTANCE || method === MathNode.DOT ) {
 
-		const method = this.method;
+				return 'float';
 
-		if ( method === MathNode.LENGTH || method === MathNode.DISTANCE || method === MathNode.DOT ) {
+			} else if ( method === MathNode.CROSS ) {
 
-			return 'float';
-
-		} else if ( method === MathNode.CROSS ) {
-
-			return 'vec3';
-
-		} else {
-
-			return this.getInputType( builder );
-
-		}
-
-	}
-
-	generate( builder, output ) {
-
-		const method = this.method;
-
-		const type = this.getNodeType( builder );
-		const inputType = this.getInputType( builder );
-
-		const a = this.aNode;
-		const b = this.bNode;
-		const c = this.cNode;
-
-		const isWebGL = builder.renderer.isWebGLRenderer === true;
-
-		if ( method === MathNode.TRANSFORM_DIRECTION ) {
-
-			// dir can be either a direction vector or a normal vector
-			// upper-left 3x3 of matrix is assumed to be orthogonal
-
-			let tA = a;
-			let tB = b;
-
-			if ( builder.isMatrix( tA.getNodeType( builder ) ) ) {
-
-				tB = vec4( vec3( tB ), 0.0 );
+				return 'vec3';
 
 			} else {
 
-				tA = vec4( vec3( tA ), 0.0 );
+				return this.getInputType( builder );
 
 			}
 
-			const mulNode = mul( tA, tB ).xyz;
+		}
 
-			return normalize( mulNode ).build( builder, output );
+		generate( builder, output ) {
 
-		} else if ( method === MathNode.NEGATE ) {
+			const method = this.method;
 
-			return builder.format( '-' + a.build( builder, inputType ), type, output );
+			const type = this.getNodeType( builder );
+			const inputType = this.getInputType( builder );
 
-		} else if ( method === MathNode.ONE_MINUS ) {
+			const a = this.aNode;
+			const b = this.bNode;
+			const c = this.cNode;
 
-			return sub( 1.0, a ).build( builder, output );
+			const isWebGL = builder.renderer.isWebGLRenderer === true;
 
-		} else if ( method === MathNode.RECIPROCAL ) {
+			if ( method === MathNode.TRANSFORM_DIRECTION ) {
 
-			return div( 1.0, a ).build( builder, output );
+				// dir can be either a direction vector or a normal vector
+				// upper-left 3x3 of matrix is assumed to be orthogonal
 
-		} else if ( method === MathNode.DIFFERENCE ) {
+				let tA = a;
+				let tB = b;
 
-			return abs( sub( a, b ) ).build( builder, output );
+				if ( builder.isMatrix( tA.getNodeType( builder ) ) ) {
 
-		} else {
+					tB = vec4( vec3( tB ), 0.0 );
 
-			const params = [];
+				} else {
 
-			if ( method === MathNode.CROSS ) {
+					tA = vec4( vec3( tA ), 0.0 );
 
-				params.push(
-					a.build( builder, type ),
-					b.build( builder, type )
-				);
+				}
 
-			} else if ( method === MathNode.STEP ) {
+				const mulNode = mul( tA, tB ).xyz;
 
-				params.push(
-					a.build( builder, builder.getTypeLength( a.getNodeType( builder ) ) === 1 ? 'float' : inputType ),
-					b.build( builder, inputType )
-				);
+				return normalize( mulNode ).build( builder, output );
 
-			} else if ( ( isWebGL && ( method === MathNode.MIN || method === MathNode.MAX ) ) || method === MathNode.MOD ) {
+			} else if ( method === MathNode.NEGATE ) {
 
-				params.push(
-					a.build( builder, inputType ),
-					b.build( builder, builder.getTypeLength( b.getNodeType( builder ) ) === 1 ? 'float' : inputType )
-				);
+				return builder.format( '-' + a.build( builder, inputType ), type, output );
 
-			} else if ( method === MathNode.REFRACT ) {
+			} else if ( method === MathNode.ONE_MINUS ) {
 
-				params.push(
-					a.build( builder, inputType ),
-					b.build( builder, inputType ),
-					c.build( builder, 'float' )
-				);
+				return sub( 1.0, a ).build( builder, output );
 
-			} else if ( method === MathNode.MIX ) {
+			} else if ( method === MathNode.RECIPROCAL ) {
 
-				params.push(
-					a.build( builder, inputType ),
-					b.build( builder, inputType ),
-					c.build( builder, builder.getTypeLength( c.getNodeType( builder ) ) === 1 ? 'float' : inputType )
-				);
+				return div( 1.0, a ).build( builder, output );
+
+			} else if ( method === MathNode.DIFFERENCE ) {
+
+				return abs( sub( a, b ) ).build( builder, output );
 
 			} else {
 
-				params.push( a.build( builder, inputType ) );
-				if ( b !== null ) params.push( b.build( builder, inputType ) );
-				if ( c !== null ) params.push( c.build( builder, inputType ) );
+				const params = [];
+
+				if ( method === MathNode.CROSS ) {
+
+					params.push(
+						a.build( builder, type ),
+						b.build( builder, type )
+					);
+
+				} else if ( method === MathNode.STEP ) {
+
+					params.push(
+						a.build( builder, builder.getTypeLength( a.getNodeType( builder ) ) === 1 ? 'float' : inputType ),
+						b.build( builder, inputType )
+					);
+
+				} else if ( ( isWebGL && ( method === MathNode.MIN || method === MathNode.MAX ) ) || method === MathNode.MOD ) {
+
+					params.push(
+						a.build( builder, inputType ),
+						b.build( builder, builder.getTypeLength( b.getNodeType( builder ) ) === 1 ? 'float' : inputType )
+					);
+
+				} else if ( method === MathNode.REFRACT ) {
+
+					params.push(
+						a.build( builder, inputType ),
+						b.build( builder, inputType ),
+						c.build( builder, 'float' )
+					);
+
+				} else if ( method === MathNode.MIX ) {
+
+					params.push(
+						a.build( builder, inputType ),
+						b.build( builder, inputType ),
+						c.build( builder, builder.getTypeLength( c.getNodeType( builder ) ) === 1 ? 'float' : inputType )
+					);
+
+				} else {
+
+					params.push( a.build( builder, inputType ) );
+					if ( b !== null ) params.push( b.build( builder, inputType ) );
+					if ( c !== null ) params.push( c.build( builder, inputType ) );
+
+				}
+
+				return builder.format( `${ builder.getMethod( method ) }( ${params.join( ', ' )} )`, type, output );
 
 			}
 
-			return builder.format( `${ builder.getMethod( method ) }( ${params.join( ', ' )} )`, type, output );
+		}
+
+		serialize( data ) {
+
+			super.serialize( data );
+
+			data.method = this.method;
+
+		}
+
+		deserialize( data ) {
+
+			super.deserialize( data );
+
+			this.method = data.method;
 
 		}
 
 	}
-
-	serialize( data ) {
-
-		super.serialize( data );
-
-		data.method = this.method;
-
-	}
-
-	deserialize( data ) {
-
-		super.deserialize( data );
-
-		this.method = data.method;
-
-	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	// 1 input
 
@@ -245,6 +246,8 @@ class MathNode extends TempNode {
 	MathNode.REFRACT = 'refract';
 	MathNode.SMOOTHSTEP = 'smoothstep';
 	MathNode.FACEFORWARD = 'faceforward';
+
+	return MathNode;
 
 } )();
 

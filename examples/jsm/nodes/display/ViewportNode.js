@@ -7,96 +7,97 @@ import { Vector2 } from 'three';
 
 let resolution;
 
-class ViewportNode extends Node {
 
-	constructor( scope ) {
+const ViewportNode /* @__PURE__ */ = ( () => {
 
-		super();
+	class ViewportNode extends Node {
 
-		this.scope = scope;
+		constructor( scope ) {
 
-		this.isViewportNode = true;
+			super();
 
-	}
+			this.scope = scope;
 
-	getNodeType() {
-
-		return this.scope === ViewportNode.COORDINATE ? 'vec4' : 'vec2';
-
-	}
-
-	getUpdateType() {
-
-		let updateType = NodeUpdateType.NONE;
-
-		if ( this.scope === ViewportNode.RESOLUTION ) {
-
-			updateType = NodeUpdateType.FRAME;
+			this.isViewportNode = true;
 
 		}
 
-		this.updateType = updateType;
+		getNodeType() {
 
-		return updateType;
-
-	}
-
-	update( { renderer } ) {
-
-		renderer.getDrawingBufferSize( resolution );
-
-	}
-
-	construct( builder ) {
-
-		const scope = this.scope;
-
-		if ( scope === ViewportNode.COORDINATE ) return;
-
-		let output = null;
-
-		if ( scope === ViewportNode.RESOLUTION ) {
-
-			output = uniform( resolution || ( resolution = new Vector2() ) );
-
-		} else {
-
-			const coordinateNode = vec2( new ViewportNode( ViewportNode.COORDINATE ) );
-			const resolutionNode = new ViewportNode( ViewportNode.RESOLUTION );
-
-			output = coordinateNode.div( resolutionNode );
-
-			let outX = output.x;
-			let outY = output.y;
-
-			if ( /top/i.test( scope ) && builder.isFlipY() ) outY = outY.oneMinus();
-			else if ( /bottom/i.test( scope ) && builder.isFlipY() === false ) outY = outY.oneMinus();
-
-			if ( /right/i.test( scope ) ) outX = outX.oneMinus();
-
-			output = vec2( outX, outY );
+			return this.scope === ViewportNode.COORDINATE ? 'vec4' : 'vec2';
 
 		}
 
-		return output;
+		getUpdateType() {
 
-	}
+			let updateType = NodeUpdateType.NONE;
 
-	generate( builder ) {
+			if ( this.scope === ViewportNode.RESOLUTION ) {
 
-		if ( this.scope === ViewportNode.COORDINATE ) {
+				updateType = NodeUpdateType.FRAME;
 
-			return builder.getFragCoord();
+			}
+
+			this.updateType = updateType;
+
+			return updateType;
 
 		}
 
-		return super.generate( builder );
+		update( { renderer } ) {
+
+			renderer.getDrawingBufferSize( resolution );
+
+		}
+
+		construct( builder ) {
+
+			const scope = this.scope;
+
+			if ( scope === ViewportNode.COORDINATE ) return;
+
+			let output = null;
+
+			if ( scope === ViewportNode.RESOLUTION ) {
+
+				output = uniform( resolution || ( resolution = new Vector2() ) );
+
+			} else {
+
+				const coordinateNode = vec2( new ViewportNode( ViewportNode.COORDINATE ) );
+				const resolutionNode = new ViewportNode( ViewportNode.RESOLUTION );
+
+				output = coordinateNode.div( resolutionNode );
+
+				let outX = output.x;
+				let outY = output.y;
+
+				if ( /top/i.test( scope ) && builder.isFlipY() ) outY = outY.oneMinus();
+				else if ( /bottom/i.test( scope ) && builder.isFlipY() === false ) outY = outY.oneMinus();
+
+				if ( /right/i.test( scope ) ) outX = outX.oneMinus();
+
+				output = vec2( outX, outY );
+
+			}
+
+			return output;
+
+		}
+
+		generate( builder ) {
+
+			if ( this.scope === ViewportNode.COORDINATE ) {
+
+				return builder.getFragCoord();
+
+			}
+
+			return super.generate( builder );
+
+		}
 
 	}
-
-}
-
-/* @__PURE__ */ ( () => {
 
 	ViewportNode.COORDINATE = 'coordinate';
 	ViewportNode.RESOLUTION = 'resolution';
@@ -104,6 +105,8 @@ class ViewportNode extends Node {
 	ViewportNode.BOTTOM_LEFT = 'bottomLeft';
 	ViewportNode.TOP_RIGHT = 'topRight';
 	ViewportNode.BOTTOM_RIGHT = 'bottomRight';
+
+	return ViewportNode;
 
 } )();
 

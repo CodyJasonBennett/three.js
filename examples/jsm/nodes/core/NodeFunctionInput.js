@@ -1,20 +1,22 @@
-class NodeFunctionInput {
+const NodeFunctionInput /* @__PURE__ */ = ( () => {
 
-	constructor( type, name, count = null, qualifier = '', isConst = false ) {
+	class NodeFunctionInput {
 
-		this.type = type;
-		this.name = name;
-		this.count = count;
-		this.qualifier = qualifier;
-		this.isConst = isConst;
+		constructor( type, name, count = null, qualifier = '', isConst = false ) {
+
+			this.type = type;
+			this.name = name;
+			this.count = count;
+			this.qualifier = qualifier;
+			this.isConst = isConst;
+
+		}
 
 	}
 
-}
-
-/* @__PURE__ */ ( () => {
-
 	NodeFunctionInput.isNodeFunctionInput = true;
+
+	return NodeFunctionInput;
 
 } )();
 

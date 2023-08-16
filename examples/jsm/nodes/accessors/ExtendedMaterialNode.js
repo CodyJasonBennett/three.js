@@ -8,68 +8,71 @@ import { bumpMap } from '../display/BumpMapNode.js';
 import { addNodeClass } from '../core/Node.js';
 import { nodeImmutable } from '../shadernode/ShaderNode.js';
 
-class ExtendedMaterialNode extends MaterialNode {
 
-	constructor( scope ) {
+const ExtendedMaterialNode /* @__PURE__ */ = ( () => {
 
-		super( scope );
+	class ExtendedMaterialNode extends MaterialNode {
 
-	}
+		constructor( scope ) {
 
-	getNodeType( builder ) {
-
-		const scope = this.scope;
-		let type = null;
-
-		if ( scope === ExtendedMaterialNode.NORMAL || scope === ExtendedMaterialNode.CLEARCOAT_NORMAL ) {
-
-			type = 'vec3';
+			super( scope );
 
 		}
 
-		return type || super.getNodeType( builder );
+		getNodeType( builder ) {
 
-	}
+			const scope = this.scope;
+			let type = null;
 
-	construct( builder ) {
+			if ( scope === ExtendedMaterialNode.NORMAL || scope === ExtendedMaterialNode.CLEARCOAT_NORMAL ) {
 
-		const material = builder.material;
-		const scope = this.scope;
-
-		let node = null;
-
-		if ( scope === ExtendedMaterialNode.NORMAL ) {
-
-			if ( material.normalMap ) {
-
-				node = normalMap( this.getTexture( 'normalMap' ), materialReference( 'normalScale', 'vec2' ) );
-
-			} else if ( material.bumpMap ) {
-
-				node = bumpMap( material.bumpMap, materialReference( 'bumpScale', 'float' ) );
-
-			} else {
-
-				node = normalView;
+				type = 'vec3';
 
 			}
 
-		} else if ( scope === ExtendedMaterialNode.CLEARCOAT_NORMAL ) {
-
-			node = material.clearcoatNormalMap ? normalMap( this.getTexture( 'clearcoatNormalMap' ), materialReference( 'clearcoatNormalScale', 'vec2' ) ) : normalView;
+			return type || super.getNodeType( builder );
 
 		}
 
-		return node || super.construct( builder );
+		construct( builder ) {
+
+			const material = builder.material;
+			const scope = this.scope;
+
+			let node = null;
+
+			if ( scope === ExtendedMaterialNode.NORMAL ) {
+
+				if ( material.normalMap ) {
+
+					node = normalMap( this.getTexture( 'normalMap' ), materialReference( 'normalScale', 'vec2' ) );
+
+				} else if ( material.bumpMap ) {
+
+					node = bumpMap( material.bumpMap, materialReference( 'bumpScale', 'float' ) );
+
+				} else {
+
+					node = normalView;
+
+				}
+
+			} else if ( scope === ExtendedMaterialNode.CLEARCOAT_NORMAL ) {
+
+				node = material.clearcoatNormalMap ? normalMap( this.getTexture( 'clearcoatNormalMap' ), materialReference( 'clearcoatNormalScale', 'vec2' ) ) : normalView;
+
+			}
+
+			return node || super.construct( builder );
+
+		}
 
 	}
 
-}
-
-/* @__PURE__ */ ( () => {
-
 	ExtendedMaterialNode.NORMAL = 'normal';
 	ExtendedMaterialNode.CLEARCOAT_NORMAL = 'clearcoatNormal';
+
+	return ExtendedMaterialNode;
 
 } )();
 

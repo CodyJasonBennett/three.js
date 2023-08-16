@@ -220,32 +220,41 @@ const uints = [ 0, 1, 2, 3 ];
 const ints = [ - 1, - 2 ];
 const floats = [ 0.5, 1.5, 1 / 3, 1e-6, 1e6, Math.PI, Math.PI * 2, 1 / Math.PI, 2 / Math.PI, 1 / ( Math.PI * 2 ), Math.PI / 2 ];
 
-const boolsCacheMap = /* @__PURE__ */ new Map();
-/* @__PURE__ */ ( () => {
 
+const boolsCacheMap = /* @__PURE__ */ ( () => {
+
+	const boolsCacheMap = new Map();
 	for ( const bool of bools ) boolsCacheMap.set( bool, new ConstNode( bool ) );
 
+	return boolsCacheMap;
+
 } )();
 
-const uintsCacheMap = /* @__PURE__ */ new Map();
-/* @__PURE__ */ ( () => {
+const uintsCacheMap = /* @__PURE__ */ ( () => {
 
+	const uintsCacheMap = new Map();
 	for ( const uint of uints ) uintsCacheMap.set( uint, new ConstNode( uint, 'uint' ) );
 
+	return uintsCacheMap;
+
 } )();
 
-const intsCacheMap = /* @__PURE__ */ new Map( /* @__PURE__ */ [ ...uintsCacheMap ].map( el => /* @__PURE__ */ new ConstNode( el.value, 'int' ) ) );
-/* @__PURE__ */ ( () => {
+const intsCacheMap = /* @__PURE__ */ ( () => {
 
+	const intsCacheMap = new Map( [ ...uintsCacheMap ].map( el => new ConstNode( el.value, 'int' ) ) );
 	for ( const int of ints ) intsCacheMap.set( int, new ConstNode( int, 'int' ) );
 
+	return intsCacheMap;
+
 } )();
 
-const floatsCacheMap = /* @__PURE__ */ new Map( /* @__PURE__ */ [ ...intsCacheMap ].map( el => /* @__PURE__ */ new ConstNode( el.value ) ) );
-/* @__PURE__ */ ( () => {
+const floatsCacheMap = /* @__PURE__ */ ( () => {
 
+	const floatsCacheMap = new Map( [ ...intsCacheMap ].map( el => new ConstNode( el.value ) ) );
 	for ( const float of floats ) floatsCacheMap.set( float, new ConstNode( float ) );
 	for ( const float of floats ) floatsCacheMap.set( - float, new ConstNode( - float ) );
+
+	return floatsCacheMap;
 
 } )();
 
