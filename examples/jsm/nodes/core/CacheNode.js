@@ -39,8 +39,8 @@ class CacheNode extends Node {
 
 export default CacheNode;
 
-export const cache = nodeProxy( CacheNode );
+export const cache = /* @__PURE__ */ nodeProxy( CacheNode );
 
-addNodeElement( 'cache', cache );
+/* @__PURE__ */ addNodeElement( 'cache', cache );
 
-addNodeClass( CacheNode );
+/* @__PURE__ */ addNodeClass( CacheNode );

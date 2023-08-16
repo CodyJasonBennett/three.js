@@ -91,6 +91,6 @@ export const call = ( func, ...params ) => {
 
 };
 
-addNodeElement( 'call', call );
+/* @__PURE__ */ addNodeElement( 'call', call );
 
-addNodeClass( FunctionCallNode );
+/* @__PURE__ */ addNodeClass( FunctionCallNode );

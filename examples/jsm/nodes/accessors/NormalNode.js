@@ -78,19 +78,24 @@ class NormalNode extends Node {
 
 }
 
-NormalNode.GEOMETRY = 'geometry';
-NormalNode.LOCAL = 'local';
-NormalNode.VIEW = 'view';
-NormalNode.WORLD = 'world';
+/* @__PURE__ */ ( () => {
+
+	NormalNode.GEOMETRY = 'geometry';
+	NormalNode.LOCAL = 'local';
+	NormalNode.VIEW = 'view';
+	NormalNode.WORLD = 'world';
+
+} )();
+
 
 export default NormalNode;
 
-export const normalGeometry = nodeImmutable( NormalNode, NormalNode.GEOMETRY );
-export const normalLocal = nodeImmutable( NormalNode, NormalNode.LOCAL );
-export const normalView = nodeImmutable( NormalNode, NormalNode.VIEW );
-export const normalWorld = nodeImmutable( NormalNode, NormalNode.WORLD );
-export const transformedNormalView = property( 'vec3', 'TransformedNormalView' );
-export const transformedNormalWorld = transformedNormalView.transformDirection( cameraViewMatrix ).normalize();
-export const transformedClearcoatNormalView = property( 'vec3', 'TransformedClearcoatNormalView' );
+export const normalGeometry = /* @__PURE__ */ nodeImmutable( NormalNode, NormalNode.GEOMETRY );
+export const normalLocal = /* @__PURE__ */ nodeImmutable( NormalNode, NormalNode.LOCAL );
+export const normalView = /* @__PURE__ */ nodeImmutable( NormalNode, NormalNode.VIEW );
+export const normalWorld = /* @__PURE__ */ nodeImmutable( NormalNode, NormalNode.WORLD );
+export const transformedNormalView = /* @__PURE__ */ property( 'vec3', 'TransformedNormalView' );
+export const transformedNormalWorld = /* @__PURE__ */ transformedNormalView.transformDirection( cameraViewMatrix ).normalize();
+export const transformedClearcoatNormalView = /* @__PURE__ */ property( 'vec3', 'TransformedClearcoatNormalView' );
 
-addNodeClass( NormalNode );
+/* @__PURE__ */ addNodeClass( NormalNode );

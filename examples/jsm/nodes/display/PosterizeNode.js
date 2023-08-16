@@ -25,8 +25,8 @@ class PosterizeNode extends TempNode {
 
 export default PosterizeNode;
 
-export const posterize = nodeProxy( PosterizeNode );
+export const posterize = /* @__PURE__ */ nodeProxy( PosterizeNode );
 
-addNodeElement( 'posterize', posterize );
+/* @__PURE__ */ addNodeElement( 'posterize', posterize );
 
-addNodeClass( PosterizeNode );
+/* @__PURE__ */ addNodeClass( PosterizeNode );

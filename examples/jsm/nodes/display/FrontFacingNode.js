@@ -21,7 +21,7 @@ class FrontFacingNode extends Node {
 
 export default FrontFacingNode;
 
-export const frontFacing = nodeImmutable( FrontFacingNode );
-export const faceDirection = float( frontFacing ).mul( 2.0 ).sub( 1.0 );
+export const frontFacing = /* @__PURE__ */ nodeImmutable( FrontFacingNode );
+export const faceDirection = /* @__PURE__ */ float( frontFacing ).mul( 2.0 ).sub( 1.0 );
 
-addNodeClass( FrontFacingNode );
+/* @__PURE__ */ addNodeClass( FrontFacingNode );

@@ -2,7 +2,7 @@ import NodeMaterial, { addNodeMaterial } from './NodeMaterial.js';
 
 import { LineBasicMaterial } from 'three';
 
-const defaultValues = new LineBasicMaterial();
+const defaultValues = /* @__PURE__ */ new LineBasicMaterial();
 
 class LineBasicNodeMaterial extends NodeMaterial {
 
@@ -25,4 +25,4 @@ class LineBasicNodeMaterial extends NodeMaterial {
 
 export default LineBasicNodeMaterial;
 
-addNodeMaterial( LineBasicNodeMaterial );
+/* @__PURE__ */ addNodeMaterial( LineBasicNodeMaterial );

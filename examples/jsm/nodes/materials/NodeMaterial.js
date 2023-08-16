@@ -18,7 +18,7 @@ import { float, vec3, vec4 } from '../shadernode/ShaderNode.js';
 import AONode from '../lighting/AONode.js';
 import EnvironmentNode from '../lighting/EnvironmentNode.js';
 
-const NodeMaterials = new Map();
+const NodeMaterials = /* @__PURE__ */ new Map();
 
 class NodeMaterial extends ShaderMaterial {
 
@@ -533,4 +533,4 @@ export function createNodeMaterialFromType( type ) {
 
 }
 
-addNodeMaterial( NodeMaterial );
+/* @__PURE__ */ addNodeMaterial( NodeMaterial );

@@ -41,12 +41,17 @@ class SceneNode extends Node {
 
 }
 
-SceneNode.BACKGROUND_BLURRINESS = 'backgroundBlurriness';
-SceneNode.BACKGROUND_INTENSITY = 'backgroundIntensity';
+/* @__PURE__ */ ( () => {
+
+	SceneNode.BACKGROUND_BLURRINESS = 'backgroundBlurriness';
+	SceneNode.BACKGROUND_INTENSITY = 'backgroundIntensity';
+
+} )();
+
 
 export default SceneNode;
 
-export const backgroundBlurriness = nodeImmutable( SceneNode, SceneNode.BACKGROUND_BLURRINESS );
-export const backgroundIntensity = nodeImmutable( SceneNode, SceneNode.BACKGROUND_INTENSITY );
+export const backgroundBlurriness = /* @__PURE__ */ nodeImmutable( SceneNode, SceneNode.BACKGROUND_BLURRINESS );
+export const backgroundIntensity = /* @__PURE__ */ nodeImmutable( SceneNode, SceneNode.BACKGROUND_INTENSITY );
 
-addNodeClass( SceneNode );
+/* @__PURE__ */ addNodeClass( SceneNode );

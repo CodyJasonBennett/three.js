@@ -48,4 +48,4 @@ class JoinNode extends TempNode {
 
 export default JoinNode;
 
-addNodeClass( JoinNode );
+/* @__PURE__ */ addNodeClass( JoinNode );

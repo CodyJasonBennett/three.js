@@ -10,13 +10,13 @@ import { tslFn, float } from '../shadernode/ShaderNode.js';
 
 const G_BlinnPhong_Implicit = () => float( 0.25 );
 
-const D_BlinnPhong = tslFn( ( { dotNH } ) => {
+const D_BlinnPhong = /* @__PURE__ */ tslFn( ( { dotNH } ) => {
 
 	return shininess.mul( 0.5 / Math.PI ).add( 1.0 ).mul( dotNH.pow( shininess ) );
 
 } );
 
-const BRDF_BlinnPhong = tslFn( ( { lightDirection } ) => {
+const BRDF_BlinnPhong = /* @__PURE__ */ tslFn( ( { lightDirection } ) => {
 
 	const halfDir = lightDirection.add( positionViewDirection ).normalize();
 

@@ -1,21 +1,25 @@
 import { MaterialLoader } from 'three';
 import { createNodeMaterialFromType } from '../materials/Materials.js';
 
-const superFromTypeFunction = MaterialLoader.createMaterialFromType;
+/* @__PURE__ */ ( () => {
 
-MaterialLoader.createMaterialFromType = function ( type ) {
+	const superFromTypeFunction = MaterialLoader.createMaterialFromType;
 
-	const material = createNodeMaterialFromType( type );
+	MaterialLoader.createMaterialFromType = function ( type ) {
 
-	if ( material !== undefined ) {
+		const material = createNodeMaterialFromType( type );
 
-		return material;
+		if ( material !== undefined ) {
 
-	}
+			return material;
 
-	return superFromTypeFunction.call( this, type );
+		}
 
-};
+		return superFromTypeFunction.call( this, type );
+
+	};
+
+} )();
 
 class NodeMaterialLoader extends MaterialLoader {
 

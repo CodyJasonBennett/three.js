@@ -80,4 +80,4 @@ class InputNode extends Node {
 
 export default InputNode;
 
-addNodeClass( InputNode );
+/* @__PURE__ */ addNodeClass( InputNode );

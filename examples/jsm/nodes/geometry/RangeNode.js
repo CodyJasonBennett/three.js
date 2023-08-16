@@ -99,6 +99,6 @@ class RangeNode extends Node {
 
 export default RangeNode;
 
-export const range = nodeProxy( RangeNode );
+export const range = /* @__PURE__ */ nodeProxy( RangeNode );
 
-addNodeClass( RangeNode );
+/* @__PURE__ */ addNodeClass( RangeNode );

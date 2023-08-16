@@ -96,8 +96,8 @@ class CubeTextureNode extends TextureNode {
 
 export default CubeTextureNode;
 
-export const cubeTexture = nodeProxy( CubeTextureNode );
+export const cubeTexture = /* @__PURE__ */ nodeProxy( CubeTextureNode );
 
-addNodeElement( 'cubeTexture', cubeTexture );
+/* @__PURE__ */ addNodeElement( 'cubeTexture', cubeTexture );
 
-addNodeClass( CubeTextureNode );
+/* @__PURE__ */ addNodeClass( CubeTextureNode );

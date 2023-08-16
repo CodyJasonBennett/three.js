@@ -24,4 +24,4 @@ class AONode extends LightingNode {
 
 export default AONode;
 
-addNodeClass( AONode );
+/* @__PURE__ */ addNodeClass( AONode );

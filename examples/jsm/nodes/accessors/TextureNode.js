@@ -260,12 +260,12 @@ class TextureNode extends UniformNode {
 
 export default TextureNode;
 
-export const texture = nodeProxy( TextureNode );
+export const texture = /* @__PURE__ */ nodeProxy( TextureNode );
 //export const textureLevel = ( value, uv, level ) => texture( value, uv ).level( level );
 
 export const sampler = ( aTexture ) => ( aTexture.isNode === true ? aTexture : texture( aTexture ) ).convert( 'sampler' );
 
-addNodeElement( 'texture', texture );
-//addNodeElement( 'textureLevel', textureLevel );
+/* @__PURE__ */ addNodeElement( 'texture', texture );
+// /* @__PURE__ */ addNodeElement( 'textureLevel', textureLevel );
 
-addNodeClass( TextureNode );
+/* @__PURE__ */ addNodeClass( TextureNode );

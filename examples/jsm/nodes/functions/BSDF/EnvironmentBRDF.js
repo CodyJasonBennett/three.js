@@ -1,7 +1,7 @@
 import DFGApprox from './DFGApprox.js';
 import { tslFn } from '../../shadernode/ShaderNode.js';
 
-const EnvironmentBRDF = tslFn( ( inputs ) => {
+const EnvironmentBRDF = /* @__PURE__ */ tslFn( ( inputs ) => {
 
 	const { dotNV, specularColor, specularF90, roughness } = inputs;
 

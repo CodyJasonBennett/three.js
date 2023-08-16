@@ -181,4 +181,4 @@ class AnalyticLightNode extends LightingNode {
 
 export default AnalyticLightNode;
 
-addNodeClass( AnalyticLightNode );
+/* @__PURE__ */ addNodeClass( AnalyticLightNode );

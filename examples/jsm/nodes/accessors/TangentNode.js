@@ -86,18 +86,23 @@ class TangentNode extends Node {
 
 }
 
-TangentNode.GEOMETRY = 'geometry';
-TangentNode.LOCAL = 'local';
-TangentNode.VIEW = 'view';
-TangentNode.WORLD = 'world';
+/* @__PURE__ */ ( () => {
+
+	TangentNode.GEOMETRY = 'geometry';
+	TangentNode.LOCAL = 'local';
+	TangentNode.VIEW = 'view';
+	TangentNode.WORLD = 'world';
+
+} )();
+
 
 export default TangentNode;
 
-export const tangentGeometry = nodeImmutable( TangentNode, TangentNode.GEOMETRY );
-export const tangentLocal = nodeImmutable( TangentNode, TangentNode.LOCAL );
-export const tangentView = nodeImmutable( TangentNode, TangentNode.VIEW );
-export const tangentWorld = nodeImmutable( TangentNode, TangentNode.WORLD );
-export const transformedTangentView = temp( tangentView, 'TransformedTangentView' );
-export const transformedTangentWorld = normalize( transformedTangentView.transformDirection( cameraViewMatrix ) );
+export const tangentGeometry = /* @__PURE__ */ nodeImmutable( TangentNode, TangentNode.GEOMETRY );
+export const tangentLocal = /* @__PURE__ */ nodeImmutable( TangentNode, TangentNode.LOCAL );
+export const tangentView = /* @__PURE__ */ nodeImmutable( TangentNode, TangentNode.VIEW );
+export const tangentWorld = /* @__PURE__ */ nodeImmutable( TangentNode, TangentNode.WORLD );
+export const transformedTangentView = /* @__PURE__ */ temp( tangentView, 'TransformedTangentView' );
+export const transformedTangentWorld = /* @__PURE__ */ normalize( /* @__PURE__ */ transformedTangentView.transformDirection( cameraViewMatrix ) );
 
-addNodeClass( TangentNode );
+/* @__PURE__ */ addNodeClass( TangentNode );

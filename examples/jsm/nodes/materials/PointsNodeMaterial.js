@@ -2,7 +2,7 @@ import NodeMaterial, { addNodeMaterial } from './NodeMaterial.js';
 
 import { PointsMaterial } from 'three';
 
-const defaultValues = new PointsMaterial();
+const defaultValues = /* @__PURE__ */ new PointsMaterial();
 
 class PointsNodeMaterial extends NodeMaterial {
 
@@ -46,4 +46,4 @@ class PointsNodeMaterial extends NodeMaterial {
 
 export default PointsNodeMaterial;
 
-addNodeMaterial( PointsNodeMaterial );
+/* @__PURE__ */ addNodeMaterial( PointsNodeMaterial );

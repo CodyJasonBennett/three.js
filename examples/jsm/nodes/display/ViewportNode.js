@@ -96,20 +96,25 @@ class ViewportNode extends Node {
 
 }
 
-ViewportNode.COORDINATE = 'coordinate';
-ViewportNode.RESOLUTION = 'resolution';
-ViewportNode.TOP_LEFT = 'topLeft';
-ViewportNode.BOTTOM_LEFT = 'bottomLeft';
-ViewportNode.TOP_RIGHT = 'topRight';
-ViewportNode.BOTTOM_RIGHT = 'bottomRight';
+/* @__PURE__ */ ( () => {
+
+	ViewportNode.COORDINATE = 'coordinate';
+	ViewportNode.RESOLUTION = 'resolution';
+	ViewportNode.TOP_LEFT = 'topLeft';
+	ViewportNode.BOTTOM_LEFT = 'bottomLeft';
+	ViewportNode.TOP_RIGHT = 'topRight';
+	ViewportNode.BOTTOM_RIGHT = 'bottomRight';
+
+} )();
+
 
 export default ViewportNode;
 
-export const viewportCoordinate = nodeImmutable( ViewportNode, ViewportNode.COORDINATE );
-export const viewportResolution = nodeImmutable( ViewportNode, ViewportNode.RESOLUTION );
-export const viewportTopLeft = nodeImmutable( ViewportNode, ViewportNode.TOP_LEFT );
-export const viewportBottomLeft = nodeImmutable( ViewportNode, ViewportNode.BOTTOM_LEFT );
-export const viewportTopRight = nodeImmutable( ViewportNode, ViewportNode.TOP_RIGHT );
-export const viewportBottomRight = nodeImmutable( ViewportNode, ViewportNode.BOTTOM_RIGHT );
+export const viewportCoordinate = /* @__PURE__ */ nodeImmutable( ViewportNode, ViewportNode.COORDINATE );
+export const viewportResolution = /* @__PURE__ */ nodeImmutable( ViewportNode, ViewportNode.RESOLUTION );
+export const viewportTopLeft = /* @__PURE__ */ nodeImmutable( ViewportNode, ViewportNode.TOP_LEFT );
+export const viewportBottomLeft = /* @__PURE__ */ nodeImmutable( ViewportNode, ViewportNode.BOTTOM_LEFT );
+export const viewportTopRight = /* @__PURE__ */ nodeImmutable( ViewportNode, ViewportNode.TOP_RIGHT );
+export const viewportBottomRight = /* @__PURE__ */ nodeImmutable( ViewportNode, ViewportNode.BOTTOM_RIGHT );
 
-addNodeClass( ViewportNode );
+/* @__PURE__ */ addNodeClass( ViewportNode );

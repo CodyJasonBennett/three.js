@@ -85,20 +85,25 @@ class PositionNode extends Node {
 
 }
 
-PositionNode.GEOMETRY = 'geometry';
-PositionNode.LOCAL = 'local';
-PositionNode.WORLD = 'world';
-PositionNode.WORLD_DIRECTION = 'worldDirection';
-PositionNode.VIEW = 'view';
-PositionNode.VIEW_DIRECTION = 'viewDirection';
+/* @__PURE__ */ ( () => {
+
+	PositionNode.GEOMETRY = 'geometry';
+	PositionNode.LOCAL = 'local';
+	PositionNode.WORLD = 'world';
+	PositionNode.WORLD_DIRECTION = 'worldDirection';
+	PositionNode.VIEW = 'view';
+	PositionNode.VIEW_DIRECTION = 'viewDirection';
+
+} )();
+
 
 export default PositionNode;
 
-export const positionGeometry = nodeImmutable( PositionNode, PositionNode.GEOMETRY );
-export const positionLocal = nodeImmutable( PositionNode, PositionNode.LOCAL );
-export const positionWorld = nodeImmutable( PositionNode, PositionNode.WORLD );
-export const positionWorldDirection = nodeImmutable( PositionNode, PositionNode.WORLD_DIRECTION );
-export const positionView = nodeImmutable( PositionNode, PositionNode.VIEW );
-export const positionViewDirection = nodeImmutable( PositionNode, PositionNode.VIEW_DIRECTION );
+export const positionGeometry = /* @__PURE__ */ nodeImmutable( PositionNode, PositionNode.GEOMETRY );
+export const positionLocal = /* @__PURE__ */ nodeImmutable( PositionNode, PositionNode.LOCAL );
+export const positionWorld = /* @__PURE__ */ nodeImmutable( PositionNode, PositionNode.WORLD );
+export const positionWorldDirection = /* @__PURE__ */ nodeImmutable( PositionNode, PositionNode.WORLD_DIRECTION );
+export const positionView = /* @__PURE__ */ nodeImmutable( PositionNode, PositionNode.VIEW );
+export const positionViewDirection = /* @__PURE__ */ nodeImmutable( PositionNode, PositionNode.VIEW_DIRECTION );
 
-addNodeClass( PositionNode );
+/* @__PURE__ */ addNodeClass( PositionNode );

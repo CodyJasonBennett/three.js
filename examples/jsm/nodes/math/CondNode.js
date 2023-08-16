@@ -79,8 +79,8 @@ class CondNode extends Node {
 
 export default CondNode;
 
-export const cond = nodeProxy( CondNode );
+export const cond = /* @__PURE__ */ nodeProxy( CondNode );
 
-addNodeElement( 'cond', cond );
+/* @__PURE__ */ addNodeElement( 'cond', cond );
 
-addNodeClass( CondNode );
+/* @__PURE__ */ addNodeClass( CondNode );

@@ -66,12 +66,17 @@ class ExtendedMaterialNode extends MaterialNode {
 
 }
 
-ExtendedMaterialNode.NORMAL = 'normal';
-ExtendedMaterialNode.CLEARCOAT_NORMAL = 'clearcoatNormal';
+/* @__PURE__ */ ( () => {
+
+	ExtendedMaterialNode.NORMAL = 'normal';
+	ExtendedMaterialNode.CLEARCOAT_NORMAL = 'clearcoatNormal';
+
+} )();
+
 
 export default ExtendedMaterialNode;
 
-export const materialNormal = nodeImmutable( ExtendedMaterialNode, ExtendedMaterialNode.NORMAL );
-export const materialClearcoatNormal = nodeImmutable( ExtendedMaterialNode, ExtendedMaterialNode.CLEARCOAT_NORMAL );
+export const materialNormal = /* @__PURE__ */ nodeImmutable( ExtendedMaterialNode, ExtendedMaterialNode.NORMAL );
+export const materialClearcoatNormal = /* @__PURE__ */ nodeImmutable( ExtendedMaterialNode, ExtendedMaterialNode.CLEARCOAT_NORMAL );
 
-addNodeClass( ExtendedMaterialNode );
+/* @__PURE__ */ addNodeClass( ExtendedMaterialNode );

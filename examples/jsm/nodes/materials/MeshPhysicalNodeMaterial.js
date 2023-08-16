@@ -9,7 +9,7 @@ import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
 
 import { MeshPhysicalMaterial } from 'three';
 
-const defaultValues = new MeshPhysicalMaterial();
+const defaultValues = /* @__PURE__ */ new MeshPhysicalMaterial();
 
 class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 
@@ -125,4 +125,4 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 
 export default MeshPhysicalNodeMaterial;
 
-addNodeMaterial( MeshPhysicalNodeMaterial );
+/* @__PURE__ */ addNodeMaterial( MeshPhysicalNodeMaterial );

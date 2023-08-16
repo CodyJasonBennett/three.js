@@ -25,7 +25,7 @@ const V_Neubelt = ( dotNV, dotNL ) => {
 
 };
 
-const BRDF_Sheen = tslFn( ( { lightDirection } ) => {
+const BRDF_Sheen = /* @__PURE__ */ tslFn( ( { lightDirection } ) => {
 
 	const halfDir = lightDirection.add( positionViewDirection ).normalize();
 

@@ -24,6 +24,6 @@ class ModelViewProjectionNode extends Node {
 
 export default ModelViewProjectionNode;
 
-export const modelViewProjection = nodeProxy( ModelViewProjectionNode );
+export const modelViewProjection = /* @__PURE__ */ nodeProxy( ModelViewProjectionNode );
 
-addNodeClass( ModelViewProjectionNode );
+/* @__PURE__ */ addNodeClass( ModelViewProjectionNode );

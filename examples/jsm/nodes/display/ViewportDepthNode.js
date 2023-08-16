@@ -58,12 +58,17 @@ export const viewZToPerspectiveDepth = ( viewZ, near, far ) => near.add( viewZ )
 // maps perspective depth in [ 0, 1 ] to viewZ
 export const perspectiveDepthToViewZ = ( depth, near, far ) => near.mul( far ).div( far.sub( near ).mul( depth ).sub( far ) );
 
-ViewportDepthNode.DEPTH = 'depth';
-ViewportDepthNode.DEPTH_TEXTURE = 'depthTexture';
+/* @__PURE__ */ ( () => {
+
+	ViewportDepthNode.DEPTH = 'depth';
+	ViewportDepthNode.DEPTH_TEXTURE = 'depthTexture';
+
+} )();
+
 
 export default ViewportDepthNode;
 
-export const depth = nodeImmutable( ViewportDepthNode, ViewportDepthNode.DEPTH );
-export const depthTexture = nodeProxy( ViewportDepthNode, ViewportDepthNode.DEPTH_TEXTURE );
+export const depth = /* @__PURE__ */ nodeImmutable( ViewportDepthNode, ViewportDepthNode.DEPTH );
+export const depthTexture = /* @__PURE__ */ nodeProxy( ViewportDepthNode, ViewportDepthNode.DEPTH_TEXTURE );
 
-addNodeClass( ViewportDepthNode );
+/* @__PURE__ */ addNodeClass( ViewportDepthNode );

@@ -2,7 +2,7 @@ import NodeMaterial, { addNodeMaterial } from './NodeMaterial.js';
 
 import { MeshBasicMaterial } from 'three';
 
-const defaultValues = new MeshBasicMaterial();
+const defaultValues = /* @__PURE__ */ new MeshBasicMaterial();
 
 class MeshBasicNodeMaterial extends NodeMaterial {
 
@@ -24,4 +24,4 @@ class MeshBasicNodeMaterial extends NodeMaterial {
 
 export default MeshBasicNodeMaterial;
 
-addNodeMaterial( MeshBasicNodeMaterial );
+/* @__PURE__ */ addNodeMaterial( MeshBasicNodeMaterial );

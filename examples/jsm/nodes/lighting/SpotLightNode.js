@@ -84,6 +84,6 @@ class SpotLightNode extends AnalyticLightNode {
 
 export default SpotLightNode;
 
-addLightNode( SpotLight, SpotLightNode );
+/* @__PURE__ */ addLightNode( SpotLight, SpotLightNode );
 
-addNodeClass( SpotLightNode );
+/* @__PURE__ */ addNodeClass( SpotLightNode );

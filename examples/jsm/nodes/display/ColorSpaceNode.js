@@ -5,7 +5,7 @@ import { addNodeElement, tslFn, nodeObject, nodeProxy, vec4 } from '../shadernod
 
 import { LinearSRGBColorSpace, SRGBColorSpace } from 'three';
 
-const sRGBToLinearShader = tslFn( ( inputs ) => {
+const sRGBToLinearShader = /* @__PURE__ */ tslFn( ( inputs ) => {
 
 	const { value } = inputs;
 	const { rgb } = value;
@@ -20,7 +20,7 @@ const sRGBToLinearShader = tslFn( ( inputs ) => {
 
 } );
 
-const LinearTosRGBShader = tslFn( ( inputs ) => {
+const LinearTosRGBShader = /* @__PURE__ */ tslFn( ( inputs ) => {
 
 	const { value } = inputs;
 	const { rgb } = value;
@@ -83,9 +83,14 @@ class ColorSpaceNode extends TempNode {
 
 }
 
-ColorSpaceNode.LINEAR_TO_LINEAR = 'LinearToLinear';
-ColorSpaceNode.LINEAR_TO_sRGB = 'LinearTosRGB';
-ColorSpaceNode.sRGB_TO_LINEAR = 'sRGBToLinear';
+/* @__PURE__ */ ( () => {
+
+	ColorSpaceNode.LINEAR_TO_LINEAR = 'LinearToLinear';
+	ColorSpaceNode.LINEAR_TO_sRGB = 'LinearTosRGB';
+	ColorSpaceNode.sRGB_TO_LINEAR = 'sRGBToLinear';
+
+} )();
+
 
 const Methods = {
 	[ ColorSpaceNode.LINEAR_TO_sRGB ]: LinearTosRGBShader,
@@ -97,12 +102,12 @@ export default ColorSpaceNode;
 export const linearToColorSpace = ( node, colorSpace ) => nodeObject( new ColorSpaceNode( getMethod( LinearSRGBColorSpace, colorSpace ), nodeObject( node ) ) );
 export const colorSpaceToLinear = ( node, colorSpace ) => nodeObject( new ColorSpaceNode( getMethod( colorSpace, LinearSRGBColorSpace ), nodeObject( node ) ) );
 
-export const linearTosRGB = nodeProxy( ColorSpaceNode, ColorSpaceNode.LINEAR_TO_sRGB );
-export const sRGBToLinear = nodeProxy( ColorSpaceNode, ColorSpaceNode.sRGB_TO_LINEAR );
+export const linearTosRGB = /* @__PURE__ */ nodeProxy( ColorSpaceNode, ColorSpaceNode.LINEAR_TO_sRGB );
+export const sRGBToLinear = /* @__PURE__ */ nodeProxy( ColorSpaceNode, ColorSpaceNode.sRGB_TO_LINEAR );
 
-addNodeElement( 'linearTosRGB', linearTosRGB );
-addNodeElement( 'sRGBToLinear', sRGBToLinear );
-addNodeElement( 'linearToColorSpace', linearToColorSpace );
-addNodeElement( 'colorSpaceToLinear', colorSpaceToLinear );
+/* @__PURE__ */ addNodeElement( 'linearTosRGB', linearTosRGB );
+/* @__PURE__ */ addNodeElement( 'sRGBToLinear', sRGBToLinear );
+/* @__PURE__ */ addNodeElement( 'linearToColorSpace', linearToColorSpace );
+/* @__PURE__ */ addNodeElement( 'colorSpaceToLinear', colorSpaceToLinear );
 
-addNodeClass( ColorSpaceNode );
+/* @__PURE__ */ addNodeClass( ColorSpaceNode );

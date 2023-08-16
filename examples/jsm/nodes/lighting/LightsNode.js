@@ -2,7 +2,7 @@ import Node from '../core/Node.js';
 import AnalyticLightNode from './AnalyticLightNode.js';
 import { nodeObject, nodeProxy } from '../shadernode/ShaderNode.js';
 
-const LightNodes = new WeakMap();
+const LightNodes = /* @__PURE__ */ new WeakMap();
 
 const sortLights = ( lights ) => {
 
@@ -115,7 +115,7 @@ class LightsNode extends Node {
 export default LightsNode;
 
 export const lights = ( lights ) => nodeObject( new LightsNode().fromLights( lights ) );
-export const lightsWithoutWrap = nodeProxy( LightsNode );
+export const lightsWithoutWrap = /* @__PURE__ */ nodeProxy( LightsNode );
 
 export function addLightNode( lightClass, lightNodeClass ) {
 

@@ -5,14 +5,14 @@ import { tslFn, nodeObject, float, mat3 } from '../shadernode/ShaderNode.js';
 import { NoToneMapping, LinearToneMapping, ReinhardToneMapping, CineonToneMapping, ACESFilmicToneMapping } from 'three';
 
 // exposure only
-const LinearToneMappingNode = tslFn( ( { color, exposure } ) => {
+const LinearToneMappingNode = /* @__PURE__ */ tslFn( ( { color, exposure } ) => {
 
 	return color.mul( exposure ).clamp();
 
 } );
 
 // source: https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf
-const ReinhardToneMappingNode = tslFn( ( { color, exposure } ) => {
+const ReinhardToneMappingNode = /* @__PURE__ */ tslFn( ( { color, exposure } ) => {
 
 	color = color.mul( exposure );
 
@@ -21,7 +21,7 @@ const ReinhardToneMappingNode = tslFn( ( { color, exposure } ) => {
 } );
 
 // source: http://filmicworlds.com/blog/filmic-tonemapping-operators/
-const OptimizedCineonToneMappingNode = tslFn( ( { color, exposure } ) => {
+const OptimizedCineonToneMappingNode = /* @__PURE__ */ tslFn( ( { color, exposure } ) => {
 
 	// optimized filmic operator by Jim Hejl and Richard Burgess-Dawson
 	color = color.mul( exposure );
@@ -35,7 +35,7 @@ const OptimizedCineonToneMappingNode = tslFn( ( { color, exposure } ) => {
 } );
 
 // source: https://github.com/selfshadow/ltc_code/blob/master/webgl/shaders/ltc/ltc_blit.fs
-const RRTAndODTFit = tslFn( ( { color } ) => {
+const RRTAndODTFit = /* @__PURE__ */ tslFn( ( { color } ) => {
 
 	const a = color.mul( color.add( 0.0245786 ) ).sub( 0.000090537 );
 	const b = color.mul( color.add( 0.4329510 ).mul( 0.983729 ) ).add( 0.238081 );
@@ -45,7 +45,7 @@ const RRTAndODTFit = tslFn( ( { color } ) => {
 } );
 
 // source: https://github.com/selfshadow/ltc_code/blob/master/webgl/shaders/ltc/ltc_blit.fs
-const ACESFilmicToneMappingNode = tslFn( ( { color, exposure } ) => {
+const ACESFilmicToneMappingNode = /* @__PURE__ */ tslFn( ( { color, exposure } ) => {
 
 	// sRGB => XYZ => D65_2_D60 => AP1 => RRT_SAT
 	const ACESInputMat = mat3(
@@ -138,4 +138,4 @@ export default ToneMappingNode;
 
 export const toneMapping = ( mapping, exposure, color ) => nodeObject( new ToneMappingNode( mapping, nodeObject( exposure ), nodeObject( color ) ) );
 
-addNodeClass( ToneMappingNode );
+/* @__PURE__ */ addNodeClass( ToneMappingNode );

@@ -87,8 +87,8 @@ class TextureBicubicNode extends TempNode {
 
 export default TextureBicubicNode;
 
-export const textureBicubic = nodeProxy( TextureBicubicNode );
+export const textureBicubic = /* @__PURE__ */ nodeProxy( TextureBicubicNode );
 
-addNodeElement( 'bicubic', textureBicubic );
+/* @__PURE__ */ addNodeElement( 'bicubic', textureBicubic );
 
-addNodeClass( TextureBicubicNode );
+/* @__PURE__ */ addNodeClass( TextureBicubicNode );

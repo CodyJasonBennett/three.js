@@ -5,7 +5,7 @@ import { addNodeElement, nodeProxy } from '../shadernode/ShaderNode.js';
 import { viewportTopLeft } from './ViewportNode.js';
 import { Vector2, FramebufferTexture, LinearMipmapLinearFilter } from 'three';
 
-const _size = new Vector2();
+const _size = /* @__PURE__ */ new Vector2();
 
 class ViewportTextureNode extends TextureNode {
 
@@ -66,10 +66,10 @@ class ViewportTextureNode extends TextureNode {
 
 export default ViewportTextureNode;
 
-export const viewportTexture = nodeProxy( ViewportTextureNode );
-export const viewportMipTexture = nodeProxy( ViewportTextureNode, null, null, { generateMipmaps: true } );
+export const viewportTexture = /* @__PURE__ */ nodeProxy( ViewportTextureNode );
+export const viewportMipTexture = /* @__PURE__ */ nodeProxy( ViewportTextureNode, null, null, { generateMipmaps: true } );
 
-addNodeElement( 'viewportTexture', viewportTexture );
-addNodeElement( 'viewportMipTexture', viewportMipTexture );
+/* @__PURE__ */ addNodeElement( 'viewportTexture', viewportTexture );
+/* @__PURE__ */ addNodeElement( 'viewportMipTexture', viewportMipTexture );
 
-addNodeClass( ViewportTextureNode );
+/* @__PURE__ */ addNodeClass( ViewportTextureNode );

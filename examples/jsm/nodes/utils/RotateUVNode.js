@@ -36,8 +36,8 @@ class RotateUVNode extends TempNode {
 
 export default RotateUVNode;
 
-export const rotateUV = nodeProxy( RotateUVNode );
+export const rotateUV = /* @__PURE__ */ nodeProxy( RotateUVNode );
 
-addNodeElement( 'rotateUV', rotateUV );
+/* @__PURE__ */ addNodeElement( 'rotateUV', rotateUV );
 
-addNodeClass( RotateUVNode );
+/* @__PURE__ */ addNodeClass( RotateUVNode );

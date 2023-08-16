@@ -6,7 +6,7 @@ import SplitNode from '../utils/SplitNode.js';
 import ConstNode from '../core/ConstNode.js';
 import { getValueFromType, getValueType } from '../core/NodeUtils.js';
 
-const NodeElements = new Map(); // @TODO: Currently only a few nodes are added, probably also add others
+const NodeElements = /* @__PURE__ */ new Map(); // @TODO: Currently only a few nodes are added, probably also add others
 
 export function addNodeElement( name, nodeElement ) {
 
@@ -77,7 +77,7 @@ const shaderNodeHandler = {
 
 };
 
-const nodeObjectsCacheMap = new WeakMap();
+const nodeObjectsCacheMap = /* @__PURE__ */ new WeakMap();
 
 const ShaderNodeObject = function ( obj, altType = null ) {
 
@@ -220,22 +220,38 @@ const uints = [ 0, 1, 2, 3 ];
 const ints = [ - 1, - 2 ];
 const floats = [ 0.5, 1.5, 1 / 3, 1e-6, 1e6, Math.PI, Math.PI * 2, 1 / Math.PI, 2 / Math.PI, 1 / ( Math.PI * 2 ), Math.PI / 2 ];
 
-const boolsCacheMap = new Map();
-for ( const bool of bools ) boolsCacheMap.set( bool, new ConstNode( bool ) );
+const boolsCacheMap = /* @__PURE__ */ new Map();
+/* @__PURE__ */ ( () => {
 
-const uintsCacheMap = new Map();
-for ( const uint of uints ) uintsCacheMap.set( uint, new ConstNode( uint, 'uint' ) );
+	for ( const bool of bools ) boolsCacheMap.set( bool, new ConstNode( bool ) );
 
-const intsCacheMap = new Map( [ ...uintsCacheMap ].map( el => new ConstNode( el.value, 'int' ) ) );
-for ( const int of ints ) intsCacheMap.set( int, new ConstNode( int, 'int' ) );
+} )();
 
-const floatsCacheMap = new Map( [ ...intsCacheMap ].map( el => new ConstNode( el.value ) ) );
-for ( const float of floats ) floatsCacheMap.set( float, new ConstNode( float ) );
-for ( const float of floats ) floatsCacheMap.set( - float, new ConstNode( - float ) );
+const uintsCacheMap = /* @__PURE__ */ new Map();
+/* @__PURE__ */ ( () => {
+
+	for ( const uint of uints ) uintsCacheMap.set( uint, new ConstNode( uint, 'uint' ) );
+
+} )();
+
+const intsCacheMap = /* @__PURE__ */ new Map( /* @__PURE__ */ [ ...uintsCacheMap ].map( el => /* @__PURE__ */ new ConstNode( el.value, 'int' ) ) );
+/* @__PURE__ */ ( () => {
+
+	for ( const int of ints ) intsCacheMap.set( int, new ConstNode( int, 'int' ) );
+
+} )();
+
+const floatsCacheMap = /* @__PURE__ */ new Map( /* @__PURE__ */ [ ...intsCacheMap ].map( el => /* @__PURE__ */ new ConstNode( el.value ) ) );
+/* @__PURE__ */ ( () => {
+
+	for ( const float of floats ) floatsCacheMap.set( float, new ConstNode( float ) );
+	for ( const float of floats ) floatsCacheMap.set( - float, new ConstNode( - float ) );
+
+} )();
 
 const cacheMaps = { bool: boolsCacheMap, uint: uintsCacheMap, ints: intsCacheMap, float: floatsCacheMap };
 
-const constNodesCacheMap = new Map( [ ...boolsCacheMap, ...floatsCacheMap ] );
+const constNodesCacheMap = /* @__PURE__ */ new Map( [ ...boolsCacheMap, ...floatsCacheMap ] );
 
 const getConstNode = ( value, type ) => {
 
@@ -342,79 +358,79 @@ export const tslFn = ( jsFunc ) => {
 
 };
 
-addNodeClass( ShaderNode );
+/* @__PURE__ */ addNodeClass( ShaderNode );
 
 // types
 // @TODO: Maybe export from ConstNode.js?
 
-export const color = new ConvertType( 'color' );
+export const color = /* @__PURE__ */ new ConvertType( 'color' );
 
-export const float = new ConvertType( 'float', cacheMaps.float );
-export const int = new ConvertType( 'int', cacheMaps.int );
-export const uint = new ConvertType( 'uint', cacheMaps.uint );
-export const bool = new ConvertType( 'bool', cacheMaps.bool );
+export const float = /* @__PURE__ */ new ConvertType( 'float', cacheMaps.float );
+export const int = /* @__PURE__ */ new ConvertType( 'int', cacheMaps.int );
+export const uint = /* @__PURE__ */ new ConvertType( 'uint', cacheMaps.uint );
+export const bool = /* @__PURE__ */ new ConvertType( 'bool', cacheMaps.bool );
 
-export const vec2 = new ConvertType( 'vec2' );
-export const ivec2 = new ConvertType( 'ivec2' );
-export const uvec2 = new ConvertType( 'uvec2' );
-export const bvec2 = new ConvertType( 'bvec2' );
+export const vec2 = /* @__PURE__ */ new ConvertType( 'vec2' );
+export const ivec2 = /* @__PURE__ */ new ConvertType( 'ivec2' );
+export const uvec2 = /* @__PURE__ */ new ConvertType( 'uvec2' );
+export const bvec2 = /* @__PURE__ */ new ConvertType( 'bvec2' );
 
-export const vec3 = new ConvertType( 'vec3' );
-export const ivec3 = new ConvertType( 'ivec3' );
-export const uvec3 = new ConvertType( 'uvec3' );
-export const bvec3 = new ConvertType( 'bvec3' );
+export const vec3 = /* @__PURE__ */ new ConvertType( 'vec3' );
+export const ivec3 = /* @__PURE__ */ new ConvertType( 'ivec3' );
+export const uvec3 = /* @__PURE__ */ new ConvertType( 'uvec3' );
+export const bvec3 = /* @__PURE__ */ new ConvertType( 'bvec3' );
 
-export const vec4 = new ConvertType( 'vec4' );
-export const ivec4 = new ConvertType( 'ivec4' );
-export const uvec4 = new ConvertType( 'uvec4' );
-export const bvec4 = new ConvertType( 'bvec4' );
+export const vec4 = /* @__PURE__ */ new ConvertType( 'vec4' );
+export const ivec4 = /* @__PURE__ */ new ConvertType( 'ivec4' );
+export const uvec4 = /* @__PURE__ */ new ConvertType( 'uvec4' );
+export const bvec4 = /* @__PURE__ */ new ConvertType( 'bvec4' );
 
-export const mat3 = new ConvertType( 'mat3' );
-export const imat3 = new ConvertType( 'imat3' );
-export const umat3 = new ConvertType( 'umat3' );
-export const bmat3 = new ConvertType( 'bmat3' );
+export const mat3 = /* @__PURE__ */ new ConvertType( 'mat3' );
+export const imat3 = /* @__PURE__ */ new ConvertType( 'imat3' );
+export const umat3 = /* @__PURE__ */ new ConvertType( 'umat3' );
+export const bmat3 = /* @__PURE__ */ new ConvertType( 'bmat3' );
 
-export const mat4 = new ConvertType( 'mat4' );
-export const imat4 = new ConvertType( 'imat4' );
-export const umat4 = new ConvertType( 'umat4' );
-export const bmat4 = new ConvertType( 'bmat4' );
+export const mat4 = /* @__PURE__ */ new ConvertType( 'mat4' );
+export const imat4 = /* @__PURE__ */ new ConvertType( 'imat4' );
+export const umat4 = /* @__PURE__ */ new ConvertType( 'umat4' );
+export const bmat4 = /* @__PURE__ */ new ConvertType( 'bmat4' );
 
 export const string = ( value = '' ) => nodeObject( new ConstNode( value, 'string' ) );
 export const arrayBuffer = ( value ) => nodeObject( new ConstNode( value, 'ArrayBuffer' ) );
 
-addNodeElement( 'color', color );
-addNodeElement( 'float', float );
-addNodeElement( 'int', int );
-addNodeElement( 'uint', uint );
-addNodeElement( 'bool', bool );
-addNodeElement( 'vec2', vec2 );
-addNodeElement( 'ivec2', ivec2 );
-addNodeElement( 'uvec2', uvec2 );
-addNodeElement( 'bvec2', bvec2 );
-addNodeElement( 'vec3', vec3 );
-addNodeElement( 'ivec3', ivec3 );
-addNodeElement( 'uvec3', uvec3 );
-addNodeElement( 'bvec3', bvec3 );
-addNodeElement( 'vec4', vec4 );
-addNodeElement( 'ivec4', ivec4 );
-addNodeElement( 'uvec4', uvec4 );
-addNodeElement( 'bvec4', bvec4 );
-addNodeElement( 'mat3', mat3 );
-addNodeElement( 'imat3', imat3 );
-addNodeElement( 'umat3', umat3 );
-addNodeElement( 'bmat3', bmat3 );
-addNodeElement( 'mat4', mat4 );
-addNodeElement( 'imat4', imat4 );
-addNodeElement( 'umat4', umat4 );
-addNodeElement( 'bmat4', bmat4 );
-addNodeElement( 'string', string );
-addNodeElement( 'arrayBuffer', arrayBuffer );
+/* @__PURE__ */ addNodeElement( 'color', color );
+/* @__PURE__ */ addNodeElement( 'float', float );
+/* @__PURE__ */ addNodeElement( 'int', int );
+/* @__PURE__ */ addNodeElement( 'uint', uint );
+/* @__PURE__ */ addNodeElement( 'bool', bool );
+/* @__PURE__ */ addNodeElement( 'vec2', vec2 );
+/* @__PURE__ */ addNodeElement( 'ivec2', ivec2 );
+/* @__PURE__ */ addNodeElement( 'uvec2', uvec2 );
+/* @__PURE__ */ addNodeElement( 'bvec2', bvec2 );
+/* @__PURE__ */ addNodeElement( 'vec3', vec3 );
+/* @__PURE__ */ addNodeElement( 'ivec3', ivec3 );
+/* @__PURE__ */ addNodeElement( 'uvec3', uvec3 );
+/* @__PURE__ */ addNodeElement( 'bvec3', bvec3 );
+/* @__PURE__ */ addNodeElement( 'vec4', vec4 );
+/* @__PURE__ */ addNodeElement( 'ivec4', ivec4 );
+/* @__PURE__ */ addNodeElement( 'uvec4', uvec4 );
+/* @__PURE__ */ addNodeElement( 'bvec4', bvec4 );
+/* @__PURE__ */ addNodeElement( 'mat3', mat3 );
+/* @__PURE__ */ addNodeElement( 'imat3', imat3 );
+/* @__PURE__ */ addNodeElement( 'umat3', umat3 );
+/* @__PURE__ */ addNodeElement( 'bmat3', bmat3 );
+/* @__PURE__ */ addNodeElement( 'mat4', mat4 );
+/* @__PURE__ */ addNodeElement( 'imat4', imat4 );
+/* @__PURE__ */ addNodeElement( 'umat4', umat4 );
+/* @__PURE__ */ addNodeElement( 'bmat4', bmat4 );
+/* @__PURE__ */ addNodeElement( 'string', string );
+/* @__PURE__ */ addNodeElement( 'arrayBuffer', arrayBuffer );
 
 // basic nodes
 // HACK - we cannot export them from the corresponding files because of the cyclic dependency
-export const element = nodeProxy( ArrayElementNode );
+export const element = /* @__PURE__ */ nodeProxy( ArrayElementNode );
 export const convert = ( node, types ) => nodeObject( new ConvertNode( nodeObject( node ), types ) );
 export const split = ( node, channels ) => nodeObject( new SplitNode( nodeObject( node ), channels ) );
 
-addNodeElement( 'element', element );
-addNodeElement( 'convert', convert );
+/* @__PURE__ */ addNodeElement( 'element', element );
+/* @__PURE__ */ addNodeElement( 'convert', convert );

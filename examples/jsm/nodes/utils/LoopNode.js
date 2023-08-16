@@ -181,6 +181,6 @@ export default LoopNode;
 
 export const loop = ( ...params ) => nodeObject( new LoopNode( nodeArray( params, 'int' ) ) );
 
-addNodeElement( 'loop', ( returns, ...params ) => bypass( returns, loop( ...params ) ) );
+/* @__PURE__ */ addNodeElement( 'loop', ( returns, ...params ) => bypass( returns, loop( ...params ) ) );
 
-addNodeClass( LoopNode );
+/* @__PURE__ */ addNodeClass( LoopNode );

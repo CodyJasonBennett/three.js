@@ -55,12 +55,17 @@ class IndexNode extends Node {
 
 }
 
-IndexNode.VERTEX = 'vertex';
-IndexNode.INSTANCE = 'instance';
+/* @__PURE__ */ ( () => {
+
+	IndexNode.VERTEX = 'vertex';
+	IndexNode.INSTANCE = 'instance';
+
+} )();
+
 
 export default IndexNode;
 
-export const vertexIndex = nodeImmutable( IndexNode, IndexNode.VERTEX );
-export const instanceIndex = nodeImmutable( IndexNode, IndexNode.INSTANCE );
+export const vertexIndex = /* @__PURE__ */ nodeImmutable( IndexNode, IndexNode.VERTEX );
+export const instanceIndex = /* @__PURE__ */ nodeImmutable( IndexNode, IndexNode.INSTANCE );
 
-addNodeClass( IndexNode );
+/* @__PURE__ */ addNodeClass( IndexNode );

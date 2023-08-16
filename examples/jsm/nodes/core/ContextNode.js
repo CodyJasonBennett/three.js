@@ -52,10 +52,10 @@ class ContextNode extends Node {
 
 export default ContextNode;
 
-export const context = nodeProxy( ContextNode );
+export const context = /* @__PURE__ */ nodeProxy( ContextNode );
 export const label = ( node, name ) => context( node, { label: name } );
 
-addNodeElement( 'context', context );
-addNodeElement( 'label', label );
+/* @__PURE__ */ addNodeElement( 'context', context );
+/* @__PURE__ */ addNodeElement( 'label', label );
 
-addNodeClass( ContextNode );
+/* @__PURE__ */ addNodeClass( ContextNode );

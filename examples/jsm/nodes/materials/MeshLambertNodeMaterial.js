@@ -3,7 +3,7 @@ import PhongLightingModel from '../functions/PhongLightingModel.js';
 
 import { MeshLambertMaterial } from 'three';
 
-const defaultValues = new MeshLambertMaterial();
+const defaultValues = /* @__PURE__ */ new MeshLambertMaterial();
 
 class MeshLambertNodeMaterial extends NodeMaterial {
 
@@ -31,4 +31,4 @@ class MeshLambertNodeMaterial extends NodeMaterial {
 
 export default MeshLambertNodeMaterial;
 
-addNodeMaterial( MeshLambertNodeMaterial );
+/* @__PURE__ */ addNodeMaterial( MeshLambertNodeMaterial );

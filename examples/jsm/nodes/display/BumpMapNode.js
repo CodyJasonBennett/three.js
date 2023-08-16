@@ -12,7 +12,7 @@ import { tslFn, nodeProxy, vec2 } from '../shadernode/ShaderNode.js';
 
 // Evaluate the derivative of the height w.r.t. screen-space using forward differencing (listing 2)
 
-const dHdxy_fwd = tslFn( ( { bumpTexture, bumpScale } ) => {
+const dHdxy_fwd = /* @__PURE__ */ tslFn( ( { bumpTexture, bumpScale } ) => {
 
 	const uvNode = uv();
 
@@ -25,7 +25,7 @@ const dHdxy_fwd = tslFn( ( { bumpTexture, bumpScale } ) => {
 
 } );
 
-const perturbNormalArb = tslFn( ( inputs ) => {
+const perturbNormalArb = /* @__PURE__ */ tslFn( ( inputs ) => {
 
 	const { surf_pos, surf_norm, dHdxy } = inputs;
 
@@ -72,6 +72,6 @@ class BumpMapNode extends TempNode {
 
 export default BumpMapNode;
 
-export const bumpMap = nodeProxy( BumpMapNode );
+export const bumpMap = /* @__PURE__ */ nodeProxy( BumpMapNode );
 
-addNodeClass( BumpMapNode );
+/* @__PURE__ */ addNodeClass( BumpMapNode );

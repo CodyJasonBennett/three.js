@@ -81,18 +81,23 @@ class CameraNode extends Object3DNode {
 
 }
 
-CameraNode.PROJECTION_MATRIX = 'projectionMatrix';
-CameraNode.NEAR = 'near';
-CameraNode.FAR = 'far';
+/* @__PURE__ */ ( () => {
+
+	CameraNode.PROJECTION_MATRIX = 'projectionMatrix';
+	CameraNode.NEAR = 'near';
+	CameraNode.FAR = 'far';
+
+} )();
+
 
 export default CameraNode;
 
-export const cameraProjectionMatrix = label( nodeImmutable( CameraNode, CameraNode.PROJECTION_MATRIX ), 'projectionMatrix' );
-export const cameraNear = nodeImmutable( CameraNode, CameraNode.NEAR );
-export const cameraFar = nodeImmutable( CameraNode, CameraNode.FAR );
-export const cameraViewMatrix = nodeImmutable( CameraNode, CameraNode.VIEW_MATRIX );
-export const cameraNormalMatrix = nodeImmutable( CameraNode, CameraNode.NORMAL_MATRIX );
-export const cameraWorldMatrix = nodeImmutable( CameraNode, CameraNode.WORLD_MATRIX );
-export const cameraPosition = nodeImmutable( CameraNode, CameraNode.POSITION );
+export const cameraProjectionMatrix = /* @__PURE__ */ label( /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.PROJECTION_MATRIX ), 'projectionMatrix' );
+export const cameraNear = /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.NEAR );
+export const cameraFar = /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.FAR );
+export const cameraViewMatrix = /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.VIEW_MATRIX );
+export const cameraNormalMatrix = /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.NORMAL_MATRIX );
+export const cameraWorldMatrix = /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.WORLD_MATRIX );
+export const cameraPosition = /* @__PURE__ */ nodeImmutable( CameraNode, CameraNode.POSITION );
 
-addNodeClass( CameraNode );
+/* @__PURE__ */ addNodeClass( CameraNode );

@@ -28,8 +28,8 @@ class TextureSizeNode extends Node {
 
 export default TextureSizeNode;
 
-export const textureSize = nodeProxy( TextureSizeNode );
+export const textureSize = /* @__PURE__ */ nodeProxy( TextureSizeNode );
 
-addNodeElement( 'textureSize', textureSize );
+/* @__PURE__ */ addNodeElement( 'textureSize', textureSize );
 
-addNodeClass( TextureSizeNode );
+/* @__PURE__ */ addNodeClass( TextureSizeNode );

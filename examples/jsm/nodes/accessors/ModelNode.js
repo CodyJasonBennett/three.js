@@ -23,12 +23,12 @@ class ModelNode extends Object3DNode {
 
 export default ModelNode;
 
-export const modelDirection = nodeImmutable( ModelNode, ModelNode.DIRECTION );
-export const modelViewMatrix = label( nodeImmutable( ModelNode, ModelNode.VIEW_MATRIX ), 'modelViewMatrix' );
-export const modelNormalMatrix = nodeImmutable( ModelNode, ModelNode.NORMAL_MATRIX );
-export const modelWorldMatrix = nodeImmutable( ModelNode, ModelNode.WORLD_MATRIX );
-export const modelPosition = nodeImmutable( ModelNode, ModelNode.POSITION );
-export const modelScale = nodeImmutable( ModelNode, ModelNode.SCALE );
-export const modelViewPosition = nodeImmutable( ModelNode, ModelNode.VIEW_POSITION );
+export const modelDirection = /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.DIRECTION );
+export const modelViewMatrix = /* @__PURE__ */ label( /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.VIEW_MATRIX ), 'modelViewMatrix' );
+export const modelNormalMatrix = /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.NORMAL_MATRIX );
+export const modelWorldMatrix = /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.WORLD_MATRIX );
+export const modelPosition = /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.POSITION );
+export const modelScale = /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.SCALE );
+export const modelViewPosition = /* @__PURE__ */ nodeImmutable( ModelNode, ModelNode.VIEW_POSITION );
 
-addNodeClass( ModelNode );
+/* @__PURE__ */ addNodeClass( ModelNode );

@@ -32,6 +32,6 @@ class SpecularMIPLevelNode extends Node {
 
 export default SpecularMIPLevelNode;
 
-export const specularMIPLevel = nodeProxy( SpecularMIPLevelNode );
+export const specularMIPLevel = /* @__PURE__ */ nodeProxy( SpecularMIPLevelNode );
 
-addNodeClass( SpecularMIPLevelNode );
+/* @__PURE__ */ addNodeClass( SpecularMIPLevelNode );

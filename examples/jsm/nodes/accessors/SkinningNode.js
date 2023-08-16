@@ -88,6 +88,6 @@ class SkinningNode extends Node {
 
 export default SkinningNode;
 
-export const skinning = nodeProxy( SkinningNode );
+export const skinning = /* @__PURE__ */ nodeProxy( SkinningNode );
 
-addNodeClass( SkinningNode );
+/* @__PURE__ */ addNodeClass( SkinningNode );

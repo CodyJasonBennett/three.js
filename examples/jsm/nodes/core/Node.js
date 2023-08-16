@@ -3,7 +3,7 @@ import { NodeUpdateType } from './constants.js';
 import { getNodeChildren, getCacheKey } from './NodeUtils.js';
 import { MathUtils } from 'three';
 
-const NodeClasses = new Map();
+const NodeClasses = /* @__PURE__ */ new Map();
 
 let _nodeId = 0;
 

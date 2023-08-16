@@ -21,6 +21,6 @@ class PointUVNode extends Node {
 
 export default PointUVNode;
 
-export const pointUV = nodeImmutable( PointUVNode );
+export const pointUV = /* @__PURE__ */ nodeImmutable( PointUVNode );
 
-addNodeClass( PointUVNode );
+/* @__PURE__ */ addNodeClass( PointUVNode );

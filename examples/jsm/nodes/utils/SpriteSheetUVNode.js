@@ -36,6 +36,6 @@ class SpriteSheetUVNode extends Node {
 
 export default SpriteSheetUVNode;
 
-export const spritesheetUV = nodeProxy( SpriteSheetUVNode );
+export const spritesheetUV = /* @__PURE__ */ nodeProxy( SpriteSheetUVNode );
 
-addNodeClass( SpriteSheetUVNode );
+/* @__PURE__ */ addNodeClass( SpriteSheetUVNode );

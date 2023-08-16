@@ -63,6 +63,6 @@ class PointLightNode extends AnalyticLightNode {
 
 export default PointLightNode;
 
-addLightNode( PointLight, PointLightNode );
+/* @__PURE__ */ addLightNode( PointLight, PointLightNode );
 
-addNodeClass( PointLightNode );
+/* @__PURE__ */ addNodeClass( PointLightNode );

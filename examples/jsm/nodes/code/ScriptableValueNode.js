@@ -160,8 +160,8 @@ class ScriptableValueNode extends Node {
 
 export default ScriptableValueNode;
 
-export const scriptableValue = nodeProxy( ScriptableValueNode );
+export const scriptableValue = /* @__PURE__ */ nodeProxy( ScriptableValueNode );
 
-addNodeElement( 'scriptableValue', scriptableValue );
+/* @__PURE__ */ addNodeElement( 'scriptableValue', scriptableValue );
 
-addNodeClass( ScriptableValueNode );
+/* @__PURE__ */ addNodeClass( ScriptableValueNode );

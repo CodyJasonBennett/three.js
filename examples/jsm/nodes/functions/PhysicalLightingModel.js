@@ -18,7 +18,7 @@ import { mix, smoothstep } from '../math/MathNode.js';
 //
 
 // XYZ to linear-sRGB color space
-const XYZ_TO_REC709 = mat3(
+const XYZ_TO_REC709 = /* @__PURE__ */ mat3(
 	3.2404542, - 0.9692660, 0.0556434,
 	- 1.5371385, 1.8760108, - 0.2040259,
 	- 0.4985314, 0.0415560, 1.0572252
@@ -154,8 +154,8 @@ const IBLSheenBRDF = ( normal, viewDir, roughness ) => {
 
 };
 
-const clearcoatF0 = vec3( 0.04 );
-const clearcoatF90 = vec3( 1 );
+const clearcoatF0 = /* @__PURE__ */ vec3( 0.04 );
+const clearcoatF90 = /* @__PURE__ */ vec3( 1 );
 
 //
 

@@ -72,18 +72,23 @@ class BitangentNode extends Node {
 
 }
 
-BitangentNode.GEOMETRY = 'geometry';
-BitangentNode.LOCAL = 'local';
-BitangentNode.VIEW = 'view';
-BitangentNode.WORLD = 'world';
+/* @__PURE__ */ ( () => {
+
+	BitangentNode.GEOMETRY = 'geometry';
+	BitangentNode.LOCAL = 'local';
+	BitangentNode.VIEW = 'view';
+	BitangentNode.WORLD = 'world';
+
+} )();
+
 
 export default BitangentNode;
 
-export const bitangentGeometry = nodeImmutable( BitangentNode, BitangentNode.GEOMETRY );
-export const bitangentLocal = nodeImmutable( BitangentNode, BitangentNode.LOCAL );
-export const bitangentView = nodeImmutable( BitangentNode, BitangentNode.VIEW );
-export const bitangentWorld = nodeImmutable( BitangentNode, BitangentNode.WORLD );
-export const transformedBitangentView = normalize( transformedNormalView.cross( transformedTangentView ).mul( tangentGeometry.w ) );
-export const transformedBitangentWorld = normalize( transformedBitangentView.transformDirection( cameraViewMatrix ) );
+export const bitangentGeometry = /* @__PURE__ */ nodeImmutable( BitangentNode, BitangentNode.GEOMETRY );
+export const bitangentLocal = /* @__PURE__ */ nodeImmutable( BitangentNode, BitangentNode.LOCAL );
+export const bitangentView = /* @__PURE__ */ nodeImmutable( BitangentNode, BitangentNode.VIEW );
+export const bitangentWorld = /* @__PURE__ */ nodeImmutable( BitangentNode, BitangentNode.WORLD );
+export const transformedBitangentView = /* @__PURE__ */ normalize( /* @__PURE__ */ transformedNormalView.cross( transformedTangentView ).mul( tangentGeometry.w ) );
+export const transformedBitangentWorld = /* @__PURE__ */ normalize( /* @__PURE__ */ transformedBitangentView.transformDirection( cameraViewMatrix ) );
 
-addNodeClass( BitangentNode );
+/* @__PURE__ */ addNodeClass( BitangentNode );

@@ -4,13 +4,13 @@ import { add } from '../math/OperatorNode.js';
 import { addNodeClass } from '../core/Node.js';
 import { addNodeElement, tslFn, nodeProxy, float, vec3, mat3 } from '../shadernode/ShaderNode.js';
 
-const saturationNode = tslFn( ( { color, adjustment } ) => {
+const saturationNode = /* @__PURE__ */ tslFn( ( { color, adjustment } ) => {
 
 	return adjustment.mix( luminance( color ), color );
 
 } );
 
-const vibranceNode = tslFn( ( { color, adjustment } ) => {
+const vibranceNode = /* @__PURE__ */ tslFn( ( { color, adjustment } ) => {
 
 	const average = add( color.r, color.g, color.b ).div( 3.0 );
 
@@ -21,7 +21,7 @@ const vibranceNode = tslFn( ( { color, adjustment } ) => {
 
 } );
 
-const hueNode = tslFn( ( { color, adjustment } ) => {
+const hueNode = /* @__PURE__ */ tslFn( ( { color, adjustment } ) => {
 
 	const RGBtoYIQ = mat3( 0.299, 0.587, 0.114, 0.595716, - 0.274453, - 0.321263, 0.211456, - 0.522591, 0.311135 );
 	const YIQtoRGB = mat3( 1.0, 0.9563, 0.6210, 1.0, - 0.2721, - 0.6474, 1.0, - 1.107, 1.7046 );
@@ -80,21 +80,26 @@ class ColorAdjustmentNode extends TempNode {
 
 }
 
-ColorAdjustmentNode.SATURATION = 'saturation';
-ColorAdjustmentNode.VIBRANCE = 'vibrance';
-ColorAdjustmentNode.HUE = 'hue';
+/* @__PURE__ */ ( () => {
+
+	ColorAdjustmentNode.SATURATION = 'saturation';
+	ColorAdjustmentNode.VIBRANCE = 'vibrance';
+	ColorAdjustmentNode.HUE = 'hue';
+
+} )();
+
 
 export default ColorAdjustmentNode;
 
-export const saturation = nodeProxy( ColorAdjustmentNode, ColorAdjustmentNode.SATURATION );
-export const vibrance = nodeProxy( ColorAdjustmentNode, ColorAdjustmentNode.VIBRANCE );
-export const hue = nodeProxy( ColorAdjustmentNode, ColorAdjustmentNode.HUE );
+export const saturation = /* @__PURE__ */ nodeProxy( ColorAdjustmentNode, ColorAdjustmentNode.SATURATION );
+export const vibrance = /* @__PURE__ */ nodeProxy( ColorAdjustmentNode, ColorAdjustmentNode.VIBRANCE );
+export const hue = /* @__PURE__ */ nodeProxy( ColorAdjustmentNode, ColorAdjustmentNode.HUE );
 
-export const lumaCoeffs = vec3( 0.2125, 0.7154, 0.0721 );
+export const lumaCoeffs = /* @__PURE__ */ vec3( 0.2125, 0.7154, 0.0721 );
 export const luminance = ( color, luma = lumaCoeffs ) => dot( color, luma );
 
-addNodeElement( 'saturation', saturation );
-addNodeElement( 'vibrance', vibrance );
-addNodeElement( 'hue', hue );
+/* @__PURE__ */ addNodeElement( 'saturation', saturation );
+/* @__PURE__ */ addNodeElement( 'vibrance', vibrance );
+/* @__PURE__ */ addNodeElement( 'hue', hue );
 
-addNodeClass( ColorAdjustmentNode );
+/* @__PURE__ */ addNodeClass( ColorAdjustmentNode );

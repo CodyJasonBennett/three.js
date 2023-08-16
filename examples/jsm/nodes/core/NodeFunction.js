@@ -17,6 +17,11 @@ class NodeFunction {
 
 }
 
-NodeFunction.isNodeFunction = true;
+/* @__PURE__ */ ( () => {
+
+	NodeFunction.isNodeFunction = true;
+
+} )();
+
 
 export default NodeFunction;

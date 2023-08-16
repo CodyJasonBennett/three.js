@@ -94,6 +94,6 @@ class StackNode extends Node {
 
 export default StackNode;
 
-export const stack = nodeProxy( StackNode );
+export const stack = /* @__PURE__ */ nodeProxy( StackNode );
 
-addNodeClass( StackNode );
+/* @__PURE__ */ addNodeClass( StackNode );

@@ -41,15 +41,19 @@ class PackingNode extends TempNode {
 
 }
 
-PackingNode.DIRECTION_TO_COLOR = 'directionToColor';
-PackingNode.COLOR_TO_DIRECTION = 'colorToDirection';
+/* @__PURE__ */( () => {
+
+	PackingNode.DIRECTION_TO_COLOR = 'directionToColor';
+	PackingNode.COLOR_TO_DIRECTION = 'colorToDirection';
+
+} )();
 
 export default PackingNode;
 
-export const directionToColor = nodeProxy( PackingNode, PackingNode.DIRECTION_TO_COLOR );
-export const colorToDirection = nodeProxy( PackingNode, PackingNode.COLOR_TO_DIRECTION );
+export const directionToColor = /* @__PURE__ */ nodeProxy( PackingNode, PackingNode.DIRECTION_TO_COLOR );
+export const colorToDirection = /* @__PURE__ */ nodeProxy( PackingNode, PackingNode.COLOR_TO_DIRECTION );
 
-addNodeElement( 'directionToColor', directionToColor );
-addNodeElement( 'colorToDirection', colorToDirection );
+/* @__PURE__ */ addNodeElement( 'directionToColor', directionToColor );
+/* @__PURE__ */ addNodeElement( 'colorToDirection', colorToDirection );
 
-addNodeClass( PackingNode );
+/* @__PURE__ */ addNodeClass( PackingNode );

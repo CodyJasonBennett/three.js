@@ -38,8 +38,8 @@ class BypassNode extends Node {
 
 export default BypassNode;
 
-export const bypass = nodeProxy( BypassNode );
+export const bypass = /* @__PURE__ */ nodeProxy( BypassNode );
 
-addNodeElement( 'bypass', bypass );
+/* @__PURE__ */ addNodeElement( 'bypass', bypass );
 
-addNodeClass( BypassNode );
+/* @__PURE__ */ addNodeClass( BypassNode );

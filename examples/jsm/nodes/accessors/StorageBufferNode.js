@@ -24,4 +24,4 @@ export default StorageBufferNode;
 
 export const storage = ( value, type, count ) => nodeObject( new StorageBufferNode( value, type, count ) );
 
-addNodeClass( StorageBufferNode );
+/* @__PURE__ */ addNodeClass( StorageBufferNode );

@@ -12,6 +12,10 @@ class NodeFunctionInput {
 
 }
 
-NodeFunctionInput.isNodeFunctionInput = true;
+/* @__PURE__ */ ( () => {
+
+	NodeFunctionInput.isNodeFunctionInput = true;
+
+} )();
 
 export default NodeFunctionInput;

@@ -41,6 +41,6 @@ class MaxMipLevelNode extends UniformNode {
 
 export default MaxMipLevelNode;
 
-export const maxMipLevel = nodeProxy( MaxMipLevelNode );
+export const maxMipLevel = /* @__PURE__ */ nodeProxy( MaxMipLevelNode );
 
-addNodeClass( MaxMipLevelNode );
+/* @__PURE__ */ addNodeClass( MaxMipLevelNode );

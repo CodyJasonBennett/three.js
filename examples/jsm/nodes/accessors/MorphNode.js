@@ -65,6 +65,6 @@ class MorphNode extends Node {
 
 export default MorphNode;
 
-export const morph = nodeProxy( MorphNode );
+export const morph = /* @__PURE__ */ nodeProxy( MorphNode );
 
-addNodeClass( MorphNode );
+/* @__PURE__ */ addNodeClass( MorphNode );

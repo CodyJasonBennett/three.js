@@ -62,8 +62,8 @@ class VaryingNode extends Node {
 
 export default VaryingNode;
 
-export const varying = nodeProxy( VaryingNode );
+export const varying = /* @__PURE__ */ nodeProxy( VaryingNode );
 
-addNodeElement( 'varying', varying );
+/* @__PURE__ */ addNodeElement( 'varying', varying );
 
-addNodeClass( VaryingNode );
+/* @__PURE__ */ addNodeClass( VaryingNode );

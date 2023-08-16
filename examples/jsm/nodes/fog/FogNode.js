@@ -30,8 +30,8 @@ class FogNode extends Node {
 
 export default FogNode;
 
-export const fog = nodeProxy( FogNode );
+export const fog = /* @__PURE__ */ nodeProxy( FogNode );
 
-addNodeElement( 'fog', fog );
+/* @__PURE__ */ addNodeElement( 'fog', fog );
 
-addNodeClass( FogNode );
+/* @__PURE__ */ addNodeClass( FogNode );

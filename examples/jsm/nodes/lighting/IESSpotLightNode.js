@@ -34,6 +34,6 @@ class IESSpotLightNode extends SpotLightNode {
 
 export default IESSpotLightNode;
 
-addLightNode( IESSpotLight, IESSpotLightNode );
+/* @__PURE__ */ addLightNode( IESSpotLight, IESSpotLightNode );
 
-addNodeClass( IESSpotLightNode );
+/* @__PURE__ */ addNodeClass( IESSpotLightNode );

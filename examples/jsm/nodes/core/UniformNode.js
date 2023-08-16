@@ -58,4 +58,4 @@ export const uniform = ( arg1, arg2 ) => {
 
 };
 
-addNodeClass( UniformNode );
+/* @__PURE__ */ addNodeClass( UniformNode );

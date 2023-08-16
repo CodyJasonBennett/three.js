@@ -13,7 +13,7 @@ import { REVISION, NoColorSpace, LinearEncoding, sRGBEncoding, SRGBColorSpace, C
 import { stack } from './StackNode.js';
 import { maxMipLevel } from '../utils/MaxMipLevelNode.js';
 
-const typeFromLength = new Map( [
+const typeFromLength = /* @__PURE__ */ new Map( [
 	[ 2, 'vec2' ],
 	[ 3, 'vec3' ],
 	[ 4, 'vec4' ],
@@ -21,7 +21,7 @@ const typeFromLength = new Map( [
 	[ 16, 'mat4' ]
 ] );
 
-const typeFromArray = new Map( [
+const typeFromArray = /* @__PURE__ */ new Map( [
 	[ Int8Array, 'int' ],
 	[ Int16Array, 'int' ],
 	[ Int32Array, 'int' ],
@@ -31,7 +31,7 @@ const typeFromArray = new Map( [
 	[ Float32Array, 'float' ]
 ] );
 
-const isNonPaddingElementArray = new Set( [ Int32Array, Uint32Array, Float32Array ] );
+const isNonPaddingElementArray = /* @__PURE__ */ new Set( [ Int32Array, Uint32Array, Float32Array ] );
 
 const toFloat = ( value ) => {
 

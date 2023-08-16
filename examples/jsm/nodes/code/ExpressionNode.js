@@ -32,6 +32,6 @@ class ExpressionNode extends Node {
 
 export default ExpressionNode;
 
-export const expression = nodeProxy( ExpressionNode );
+export const expression = /* @__PURE__ */ nodeProxy( ExpressionNode );
 
-addNodeClass( ExpressionNode );
+/* @__PURE__ */ addNodeClass( ExpressionNode );

@@ -30,6 +30,6 @@ class ReflectVectorNode extends Node {
 
 export default ReflectVectorNode;
 
-export const reflectVector = nodeImmutable( ReflectVectorNode );
+export const reflectVector = /* @__PURE__ */ nodeImmutable( ReflectVectorNode );
 
-addNodeClass( ReflectVectorNode );
+/* @__PURE__ */ addNodeClass( ReflectVectorNode );

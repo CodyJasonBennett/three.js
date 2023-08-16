@@ -19,8 +19,8 @@ class DiscardNode extends CondNode {
 
 export default DiscardNode;
 
-export const discard = nodeProxy( DiscardNode );
+export const discard = /* @__PURE__ */ nodeProxy( DiscardNode );
 
-addNodeElement( 'discard', discard );
+/* @__PURE__ */ addNodeElement( 'discard', discard );
 
-addNodeClass( DiscardNode );
+/* @__PURE__ */ addNodeClass( DiscardNode );

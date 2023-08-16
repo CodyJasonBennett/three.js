@@ -80,8 +80,8 @@ class VarNode extends Node {
 
 export default VarNode;
 
-export const temp = nodeProxy( VarNode );
+export const temp = /* @__PURE__ */ nodeProxy( VarNode );
 
-addNodeElement( 'temp', temp );
+/* @__PURE__ */ addNodeElement( 'temp', temp );
 
-addNodeClass( VarNode );
+/* @__PURE__ */ addNodeClass( VarNode );

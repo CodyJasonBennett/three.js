@@ -12,7 +12,7 @@ import { float, vec2 } from '../shadernode/ShaderNode.js';
 import { cubeTexture } from '../accessors/CubeTextureNode.js';
 import { reference } from '../accessors/ReferenceNode.js';
 
-const envNodeCache = new WeakMap();
+const envNodeCache = /* @__PURE__ */ new WeakMap();
 
 class EnvironmentNode extends LightingNode {
 
@@ -188,4 +188,4 @@ const createIrradianceContext = ( normalWorldNode ) => {
 
 export default EnvironmentNode;
 
-addNodeClass( EnvironmentNode );
+/* @__PURE__ */ addNodeClass( EnvironmentNode );

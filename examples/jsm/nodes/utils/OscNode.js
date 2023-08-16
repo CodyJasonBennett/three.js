@@ -66,16 +66,20 @@ class OscNode extends Node {
 
 }
 
-OscNode.SINE = 'sine';
-OscNode.SQUARE = 'square';
-OscNode.TRIANGLE = 'triangle';
-OscNode.SAWTOOTH = 'sawtooth';
+/* @__PURE__ */ ( () => {
+
+	OscNode.SINE = 'sine';
+	OscNode.SQUARE = 'square';
+	OscNode.TRIANGLE = 'triangle';
+	OscNode.SAWTOOTH = 'sawtooth';
+
+} )();
 
 export default OscNode;
 
-export const oscSine = nodeProxy( OscNode, OscNode.SINE );
-export const oscSquare = nodeProxy( OscNode, OscNode.SQUARE );
-export const oscTriangle = nodeProxy( OscNode, OscNode.TRIANGLE );
-export const oscSawtooth = nodeProxy( OscNode, OscNode.SAWTOOTH );
+export const oscSine = /* @__PURE__ */ nodeProxy( OscNode, OscNode.SINE );
+export const oscSquare = /* @__PURE__ */ nodeProxy( OscNode, OscNode.SQUARE );
+export const oscTriangle = /* @__PURE__ */ nodeProxy( OscNode, OscNode.TRIANGLE );
+export const oscSawtooth = /* @__PURE__ */ nodeProxy( OscNode, OscNode.SAWTOOTH );
 
-addNodeClass( OscNode );
+/* @__PURE__ */ addNodeClass( OscNode );

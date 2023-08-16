@@ -48,10 +48,16 @@ class LightNode extends Node {
 
 }
 
-LightNode.TARGET_DIRECTION = 'targetDirection';
+/* @__PURE__ */ ( () => {
+
+	LightNode.TARGET_DIRECTION = 'targetDirection';
+
+} )();
+
+
 
 export default LightNode;
 
-export const lightTargetDirection = nodeProxy( LightNode, LightNode.TARGET_DIRECTION );
+export const lightTargetDirection = /* @__PURE__ */ nodeProxy( LightNode, LightNode.TARGET_DIRECTION );
 
-addNodeClass( LightNode );
+/* @__PURE__ */ addNodeClass( LightNode );

@@ -78,10 +78,14 @@ class TimerNode extends UniformNode {
 
 }
 
-TimerNode.LOCAL = 'local';
-TimerNode.GLOBAL = 'global';
-TimerNode.DELTA = 'delta';
-TimerNode.FRAME = 'frame';
+/* @__PURE__ */ ( () => {
+
+	TimerNode.LOCAL = 'local';
+	TimerNode.GLOBAL = 'global';
+	TimerNode.DELTA = 'delta';
+	TimerNode.FRAME = 'frame';
+
+} )();
 
 export default TimerNode;
 
@@ -89,6 +93,6 @@ export default TimerNode;
 export const timerLocal = ( timeScale, value = 0 ) => nodeObject( new TimerNode( TimerNode.LOCAL, timeScale, value ) );
 export const timerGlobal = ( timeScale, value = 0 ) => nodeObject( new TimerNode( TimerNode.GLOBAL, timeScale, value ) );
 export const timerDelta = ( timeScale, value = 0 ) => nodeObject( new TimerNode( TimerNode.DELTA, timeScale, value ) );
-export const frameId = nodeImmutable( TimerNode, TimerNode.FRAME );
+export const frameId = /* @__PURE__ */ nodeImmutable( TimerNode, TimerNode.FRAME );
 
-addNodeClass( TimerNode );
+/* @__PURE__ */ addNodeClass( TimerNode );

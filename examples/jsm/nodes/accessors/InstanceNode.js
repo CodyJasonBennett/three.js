@@ -66,6 +66,6 @@ class InstanceNode extends Node {
 
 export default InstanceNode;
 
-export const instance = nodeProxy( InstanceNode );
+export const instance = /* @__PURE__ */ nodeProxy( InstanceNode );
 
-addNodeClass( InstanceNode );
+/* @__PURE__ */ addNodeClass( InstanceNode );

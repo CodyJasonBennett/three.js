@@ -8,7 +8,7 @@ import { float, vec2, vec3, vec4 } from '../shadernode/ShaderNode.js';
 
 import { SpriteMaterial } from 'three';
 
-const defaultValues = new SpriteMaterial();
+const defaultValues = /* @__PURE__ */ new SpriteMaterial();
 
 class SpriteNodeMaterial extends NodeMaterial {
 
@@ -100,4 +100,4 @@ class SpriteNodeMaterial extends NodeMaterial {
 
 export default SpriteNodeMaterial;
 
-addNodeMaterial( SpriteNodeMaterial );
+/* @__PURE__ */ addNodeMaterial( SpriteNodeMaterial );

@@ -224,44 +224,49 @@ class MaterialNode extends Node {
 
 }
 
-MaterialNode.ALPHA_TEST = 'alphaTest';
-MaterialNode.COLOR = 'color';
-MaterialNode.OPACITY = 'opacity';
-MaterialNode.SHININESS = 'shininess';
-MaterialNode.SPECULAR = 'specular';
-MaterialNode.SPECULAR_STRENGTH = 'specularStrength';
-MaterialNode.REFLECTIVITY = 'reflectivity';
-MaterialNode.ROUGHNESS = 'roughness';
-MaterialNode.METALNESS = 'metalness';
-MaterialNode.CLEARCOAT = 'clearcoat';
-MaterialNode.CLEARCOAT_ROUGHNESS = 'clearcoatRoughness';
-MaterialNode.EMISSIVE = 'emissive';
-MaterialNode.ROTATION = 'rotation';
-MaterialNode.SHEEN = 'sheen';
-MaterialNode.SHEEN_ROUGHNESS = 'sheenRoughness';
-MaterialNode.IRIDESCENCE = 'iridescence';
-MaterialNode.IRIDESCENCE_IOR = 'iridescenceIOR';
-MaterialNode.IRIDESCENCE_THICKNESS = 'iridescenceThickness';
+/* @__PURE__ */ ( () => {
+
+	MaterialNode.ALPHA_TEST = 'alphaTest';
+	MaterialNode.COLOR = 'color';
+	MaterialNode.OPACITY = 'opacity';
+	MaterialNode.SHININESS = 'shininess';
+	MaterialNode.SPECULAR = 'specular';
+	MaterialNode.SPECULAR_STRENGTH = 'specularStrength';
+	MaterialNode.REFLECTIVITY = 'reflectivity';
+	MaterialNode.ROUGHNESS = 'roughness';
+	MaterialNode.METALNESS = 'metalness';
+	MaterialNode.CLEARCOAT = 'clearcoat';
+	MaterialNode.CLEARCOAT_ROUGHNESS = 'clearcoatRoughness';
+	MaterialNode.EMISSIVE = 'emissive';
+	MaterialNode.ROTATION = 'rotation';
+	MaterialNode.SHEEN = 'sheen';
+	MaterialNode.SHEEN_ROUGHNESS = 'sheenRoughness';
+	MaterialNode.IRIDESCENCE = 'iridescence';
+	MaterialNode.IRIDESCENCE_IOR = 'iridescenceIOR';
+	MaterialNode.IRIDESCENCE_THICKNESS = 'iridescenceThickness';
+
+} )();
+
 
 export default MaterialNode;
 
-export const materialAlphaTest = nodeImmutable( MaterialNode, MaterialNode.ALPHA_TEST );
-export const materialColor = nodeImmutable( MaterialNode, MaterialNode.COLOR );
-export const materialShininess = nodeImmutable( MaterialNode, MaterialNode.SHININESS );
-export const materialEmissive = nodeImmutable( MaterialNode, MaterialNode.EMISSIVE );
-export const materialOpacity = nodeImmutable( MaterialNode, MaterialNode.OPACITY );
-export const materialSpecularColor = nodeImmutable( MaterialNode, MaterialNode.SPECULAR_COLOR );
-export const materialSpecularStrength = nodeImmutable( MaterialNode, MaterialNode.SPECULAR_STRENGTH );
-export const materialReflectivity = nodeImmutable( MaterialNode, MaterialNode.REFLECTIVITY );
-export const materialRoughness = nodeImmutable( MaterialNode, MaterialNode.ROUGHNESS );
-export const materialMetalness = nodeImmutable( MaterialNode, MaterialNode.METALNESS );
-export const materialClearcoat = nodeImmutable( MaterialNode, MaterialNode.CLEARCOAT );
-export const materialClearcoatRoughness = nodeImmutable( MaterialNode, MaterialNode.CLEARCOAT_ROUGHNESS );
-export const materialRotation = nodeImmutable( MaterialNode, MaterialNode.ROTATION );
-export const materialSheen = nodeImmutable( MaterialNode, MaterialNode.SHEEN );
-export const materialSheenRoughness = nodeImmutable( MaterialNode, MaterialNode.SHEEN_ROUGHNESS );
-export const materialIridescence = nodeImmutable( MaterialNode, MaterialNode.IRIDESCENCE );
-export const materialIridescenceIOR = nodeImmutable( MaterialNode, MaterialNode.IRIDESCENCE_IOR );
-export const materialIridescenceThickness = nodeImmutable( MaterialNode, MaterialNode.IRIDESCENCE_THICKNESS );
+export const materialAlphaTest = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.ALPHA_TEST );
+export const materialColor = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.COLOR );
+export const materialShininess = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.SHININESS );
+export const materialEmissive = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.EMISSIVE );
+export const materialOpacity = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.OPACITY );
+export const materialSpecularColor = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.SPECULAR_COLOR );
+export const materialSpecularStrength = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.SPECULAR_STRENGTH );
+export const materialReflectivity = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.REFLECTIVITY );
+export const materialRoughness = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.ROUGHNESS );
+export const materialMetalness = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.METALNESS );
+export const materialClearcoat = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.CLEARCOAT );
+export const materialClearcoatRoughness = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.CLEARCOAT_ROUGHNESS );
+export const materialRotation = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.ROTATION );
+export const materialSheen = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.SHEEN );
+export const materialSheenRoughness = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.SHEEN_ROUGHNESS );
+export const materialIridescence = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.IRIDESCENCE );
+export const materialIridescenceIOR = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.IRIDESCENCE_IOR );
+export const materialIridescenceThickness = /* @__PURE__ */ nodeImmutable( MaterialNode, MaterialNode.IRIDESCENCE_THICKNESS );
 
-addNodeClass( MaterialNode );
+/* @__PURE__ */ addNodeClass( MaterialNode );

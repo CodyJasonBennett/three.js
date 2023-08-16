@@ -28,8 +28,8 @@ class FogExp2Node extends FogNode {
 
 export default FogExp2Node;
 
-export const densityFog = nodeProxy( FogExp2Node );
+export const densityFog = /* @__PURE__ */ nodeProxy( FogExp2Node );
 
-addNodeElement( 'densityFog', densityFog );
+/* @__PURE__ */ addNodeElement( 'densityFog', densityFog );
 
-addNodeClass( FogExp2Node );
+/* @__PURE__ */ addNodeClass( FogExp2Node );

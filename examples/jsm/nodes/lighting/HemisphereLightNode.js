@@ -50,6 +50,6 @@ class HemisphereLightNode extends AnalyticLightNode {
 
 export default HemisphereLightNode;
 
-addLightNode( HemisphereLight, HemisphereLightNode );
+/* @__PURE__ */ addLightNode( HemisphereLight, HemisphereLightNode );
 
-addNodeClass( HemisphereLightNode );
+/* @__PURE__ */ addNodeClass( HemisphereLightNode );

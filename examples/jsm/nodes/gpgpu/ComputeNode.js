@@ -80,6 +80,6 @@ export default ComputeNode;
 
 export const compute = ( node, count, workgroupSize ) => nodeObject( new ComputeNode( nodeObject( node ), count, workgroupSize ) );
 
-addNodeElement( 'compute', compute );
+/* @__PURE__ */ addNodeElement( 'compute', compute );
 
-addNodeClass( ComputeNode );
+/* @__PURE__ */ addNodeClass( ComputeNode );

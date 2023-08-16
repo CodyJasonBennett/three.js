@@ -57,7 +57,7 @@ class Parameters {
 
 }
 
-export const global = new Resources();
+export const global = /* @__PURE__ */ new Resources();
 
 class ScriptableNode extends Node {
 
@@ -481,8 +481,8 @@ class ScriptableNode extends Node {
 
 export default ScriptableNode;
 
-export const scriptable = nodeProxy( ScriptableNode );
+export const scriptable = /* @__PURE__ */ nodeProxy( ScriptableNode );
 
-addNodeElement( 'scriptable', scriptable );
+/* @__PURE__ */ addNodeElement( 'scriptable', scriptable );
 
-addNodeClass( ScriptableNode );
+/* @__PURE__ */ addNodeClass( ScriptableNode );

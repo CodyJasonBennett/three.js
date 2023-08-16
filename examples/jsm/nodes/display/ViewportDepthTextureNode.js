@@ -27,8 +27,8 @@ class ViewportDepthTextureNode extends ViewportTextureNode {
 
 export default ViewportDepthTextureNode;
 
-export const viewportDepthTexture = nodeProxy( ViewportDepthTextureNode );
+export const viewportDepthTexture = /* @__PURE__ */ nodeProxy( ViewportDepthTextureNode );
 
-addNodeElement( 'viewportDepthTexture', viewportDepthTexture );
+/* @__PURE__ */ addNodeElement( 'viewportDepthTexture', viewportDepthTexture );
 
-addNodeClass( ViewportDepthTextureNode );
+/* @__PURE__ */ addNodeClass( ViewportDepthTextureNode );

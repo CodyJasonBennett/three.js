@@ -24,8 +24,8 @@ class ViewportSharedTextureNode extends ViewportTextureNode {
 
 export default ViewportSharedTextureNode;
 
-export const viewportSharedTexture = nodeProxy( ViewportSharedTextureNode );
+export const viewportSharedTexture = /* @__PURE__ */ nodeProxy( ViewportSharedTextureNode );
 
-addNodeElement( 'viewportSharedTexture', viewportSharedTexture );
+/* @__PURE__ */ addNodeElement( 'viewportSharedTexture', viewportSharedTexture );
 
-addNodeClass( ViewportSharedTextureNode );
+/* @__PURE__ */ addNodeClass( ViewportSharedTextureNode );

@@ -3,7 +3,7 @@ import { EPSILON } from '../math/MathNode.js';
 import { addNodeClass } from '../core/Node.js';
 import { addNodeElement, tslFn, nodeProxy, vec3 } from '../shadernode/ShaderNode.js';
 
-export const BurnNode = tslFn( ( { base, blend } ) => {
+export const BurnNode = /* @__PURE__ */ tslFn( ( { base, blend } ) => {
 
 	const fn = ( c ) => blend[ c ].lessThan( EPSILON ).cond( blend[ c ], base[ c ].oneMinus().div( blend[ c ] ).oneMinus().max( 0 ) );
 
@@ -11,7 +11,7 @@ export const BurnNode = tslFn( ( { base, blend } ) => {
 
 } );
 
-export const DodgeNode = tslFn( ( { base, blend } ) => {
+export const DodgeNode = /* @__PURE__ */ tslFn( ( { base, blend } ) => {
 
 	const fn = ( c ) => blend[ c ].equal( 1.0 ).cond( blend[ c ], base[ c ].div( blend[ c ].oneMinus() ).max( 0 ) );
 
@@ -19,7 +19,7 @@ export const DodgeNode = tslFn( ( { base, blend } ) => {
 
 } );
 
-export const ScreenNode = tslFn( ( { base, blend } ) => {
+export const ScreenNode = /* @__PURE__ */ tslFn( ( { base, blend } ) => {
 
 	const fn = ( c ) => base[ c ].oneMinus().mul( blend[ c ].oneMinus() ).oneMinus();
 
@@ -27,7 +27,7 @@ export const ScreenNode = tslFn( ( { base, blend } ) => {
 
 } );
 
-export const OverlayNode = tslFn( ( { base, blend } ) => {
+export const OverlayNode = /* @__PURE__ */ tslFn( ( { base, blend } ) => {
 
 	const fn = ( c ) => base[ c ].lessThan( 0.5 ).cond( base[ c ].mul( blend[ c ], 2.0 ), base[ c ].oneMinus().mul( blend[ c ].oneMinus() ).oneMinus() );
 
@@ -79,21 +79,25 @@ class BlendModeNode extends TempNode {
 
 }
 
-BlendModeNode.BURN = 'burn';
-BlendModeNode.DODGE = 'dodge';
-BlendModeNode.SCREEN = 'screen';
-BlendModeNode.OVERLAY = 'overlay';
+/* @__PURE__ */ ( () => {
+
+	BlendModeNode.BURN = 'burn';
+	BlendModeNode.DODGE = 'dodge';
+	BlendModeNode.SCREEN = 'screen';
+	BlendModeNode.OVERLAY = 'overlay';
+
+} )();
 
 export default BlendModeNode;
 
-export const burn = nodeProxy( BlendModeNode, BlendModeNode.BURN );
-export const dodge = nodeProxy( BlendModeNode, BlendModeNode.DODGE );
-export const overlay = nodeProxy( BlendModeNode, BlendModeNode.OVERLAY );
-export const screen = nodeProxy( BlendModeNode, BlendModeNode.SCREEN );
+export const burn = /* @__PURE__ */ nodeProxy( BlendModeNode, BlendModeNode.BURN );
+export const dodge = /* @__PURE__ */ nodeProxy( BlendModeNode, BlendModeNode.DODGE );
+export const overlay = /* @__PURE__ */ nodeProxy( BlendModeNode, BlendModeNode.OVERLAY );
+export const screen = /* @__PURE__ */ nodeProxy( BlendModeNode, BlendModeNode.SCREEN );
 
-addNodeElement( 'burn', burn );
-addNodeElement( 'dodge', dodge );
-addNodeElement( 'overlay', overlay );
-addNodeElement( 'screen', screen );
+/* @__PURE__ */ addNodeElement( 'burn', burn );
+/* @__PURE__ */ addNodeElement( 'dodge', dodge );
+/* @__PURE__ */ addNodeElement( 'overlay', overlay );
+/* @__PURE__ */ addNodeElement( 'screen', screen );
 
-addNodeClass( BlendModeNode );
+/* @__PURE__ */ addNodeClass( BlendModeNode );

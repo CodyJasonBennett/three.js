@@ -27,8 +27,8 @@ class FogRangeNode extends FogNode {
 
 export default FogRangeNode;
 
-export const rangeFog = nodeProxy( FogRangeNode );
+export const rangeFog = /* @__PURE__ */ nodeProxy( FogRangeNode );
 
-addNodeElement( 'rangeFog', rangeFog );
+/* @__PURE__ */ addNodeElement( 'rangeFog', rangeFog );
 
-addNodeClass( FogRangeNode );
+/* @__PURE__ */ addNodeClass( FogRangeNode );

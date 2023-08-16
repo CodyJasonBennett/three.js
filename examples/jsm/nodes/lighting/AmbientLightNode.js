@@ -22,6 +22,6 @@ class AmbientLightNode extends AnalyticLightNode {
 
 export default AmbientLightNode;
 
-addLightNode( AmbientLight, AmbientLightNode );
+/* @__PURE__ */ addLightNode( AmbientLight, AmbientLightNode );
 
-addNodeClass( AmbientLightNode );
+/* @__PURE__ */ addNodeClass( AmbientLightNode );

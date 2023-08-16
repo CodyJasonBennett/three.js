@@ -7,7 +7,7 @@ import { iridescence } from '../../core/PropertyNode.js';
 import { tslFn } from '../../shadernode/ShaderNode.js';
 
 // GGX Distribution, Schlick Fresnel, GGX_SmithCorrelated Visibility
-const BRDF_GGX = tslFn( ( inputs ) => {
+const BRDF_GGX = /* @__PURE__ */ tslFn( ( inputs ) => {
 
 	const { lightDirection, f0, f90, roughness, iridescenceFresnel } = inputs;
 
